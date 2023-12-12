@@ -1,27 +1,75 @@
 {
-  "name": "yt_2023_building_saas_inventory_management_software_by_jb_webdeveloper",
-  "version": "0.1.0",
   "private": true,
+  "name": "quantum-stash",
+  "description": "",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Piotr Borowiecki",
+    "url": "https://pjborowiecki.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pjborowiecki/"
+  },
+  "bugs": {
+    "url": "https://github.com/pjborowiecki/"
+  },
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "shadcn:add": "pnpm dlx shadcn-ui@latest add",
+    "packages:update-all": "pnpm update --latest",
+    "prettier:format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@t3-oss/env-nextjs": "^0.7.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "cmdk": "^0.2.0",
+    "dotenv": "^16.3.1",
+    "next": "14.0.4",
+    "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "react-hook-form": "^7.49.0",
+    "react-wrap-balancer": "^1.1.0",
+    "resend": "^2.0.0",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/eslint": "^8.44.8",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "postcss": "^8",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "typescript": "^5"
+  },
+  "engine": {
+    "node": ">=18.0.0"
   }
 }
