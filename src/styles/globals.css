@@ -26,6 +26,7 @@
     --radius: 0.5rem;
   }
 
+  /* D2d2d2 */
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
