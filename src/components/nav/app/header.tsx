@@ -1,7 +1,8 @@
 import Link from "next/link"
 
+import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,32 +12,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
 import { CustomTooltip } from "@/components/custom-tooltip"
 import { Icons } from "@/components/icons"
 import { Search } from "@/components/search"
 
 export function Header(): JSX.Element {
   return (
-    <header className="flex items-center justify-between border-b p-4">
+    <header className="flex h-20 items-center justify-between gap-8 border-b px-4">
       <div className="flex h-full items-center gap-2">
         <CustomTooltip text="Recent Activity">
-          <Button
-            variant="outline"
+          <Link
             aria-label="Recent Activity"
-            className="p-3"
+            href="/app/home/updates"
+            className={cn(buttonVariants({ variant: "outline" }), "p-3")}
           >
             <Icons.recentActivities aria-hidden="true" className="h-4 w-4" />
-          </Button>
+          </Link>
         </CustomTooltip>
 
         <Search />
@@ -72,7 +63,7 @@ export function Header(): JSX.Element {
         <div>
           <Button
             variant="outline"
-            className="flex items-center justify-center gap-2 px-3"
+            className="flex max-w-[160px] items-center justify-center gap-2 px-3"
             aria-label="TODO"
           >
             <span>BillQuill</span>

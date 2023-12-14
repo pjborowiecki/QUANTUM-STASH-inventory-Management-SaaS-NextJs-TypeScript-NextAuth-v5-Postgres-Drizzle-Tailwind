@@ -1,3 +1,38 @@
+import Link from "next/link"
+
+import { siteConfig } from "@/config/site"
+import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/icons"
+import { SidebarNav } from "@/components/nav/app/sidebar-nav"
+
 export function Sidebar(): JSX.Element {
-  return <nav className="min-h-screen w-56 border-r p-4">Sidebar</nav>
+  return (
+    <aside className="flex min-h-[100vh] w-60 shrink-0 flex-col justify-between border-r">
+      <div>
+        <div className="flex h-20 items-center px-2">
+          <Link
+            href="/app/home/dashboard"
+            className="flex w-full items-center justify-center gap-2"
+          >
+            <Icons.logo className="h-5 w-5" />
+            <span className="whitespace-nowrap font-bold leading-none tracking-wide">
+              {siteConfig.name}
+            </span>
+          </Link>
+        </div>
+
+        <SidebarNav />
+      </div>
+
+      <div className="flex h-16 items-center justify-center border-t px-2">
+        <Button
+          variant="secondary"
+          aria-label="Expand or collapse sidebar"
+          className="w-full"
+        >
+          <Icons.chevronLeft className="h-4 w-4" aria-hidden="true" />
+        </Button>
+      </div>
+    </aside>
+  )
 }
