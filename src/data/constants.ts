@@ -1,4 +1,7 @@
-import { type DashboardCardSelectOptions } from "@/types"
+import {
+  type DashboardCardSelectOption,
+  type DashboardSalesActivityItem,
+} from "@/types"
 
 export const dashboardCardSelectOptions = [
   {
@@ -33,7 +36,7 @@ export const dashboardCardSelectOptions = [
     value: "custom",
     title: "Custom",
   },
-] satisfies DashboardCardSelectOptions[]
+] satisfies DashboardCardSelectOption[]
 
 export const dashboardSalesOrderSummaryCardSelectOptions = [
   {
@@ -68,4 +71,27 @@ export const dashboardSalesOrderSummaryCardSelectOptions = [
     value: "previous-year",
     title: "Previous Year",
   },
-] satisfies DashboardCardSelectOptions[]
+] satisfies DashboardCardSelectOption[]
+
+export const dashboardSalesActivityItems = [
+  {
+    quantity: 0,
+    unit: "Qty",
+    label: "To be packed",
+  },
+  {
+    quantity: 0,
+    unit: "Pkgs",
+    label: "To be shipped",
+  },
+  {
+    quantity: 0,
+    unit: "Pkgs",
+    label: "To be delivered",
+  },
+  {
+    quantity: 0,
+    unit: "Qty",
+    label: "To be invoiced",
+  },
+] satisfies DashboardSalesActivityItem[]

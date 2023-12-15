@@ -13,7 +13,13 @@ export interface NavItemWithChildren extends NavItem {
 
 export type AppSidebarNavItem = NavItemWithChildren
 
-export interface DashboardCardSelectOptions {
+export interface DashboardCardSelectOption {
   value: string
   title: string
+}
+
+export interface DashboardSalesActivityItem {
+  quantity: 0
+  unit: string
+  label: string
 }
