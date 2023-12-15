@@ -11,7 +11,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="min-h-screen w-full">
+      <div className="h-screen w-full overflow-y-auto">
         <Header />
         <main>{children}</main>
       </div>

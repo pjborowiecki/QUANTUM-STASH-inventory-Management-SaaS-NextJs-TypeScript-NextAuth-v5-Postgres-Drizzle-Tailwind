@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 
+// import { ThemeToggle } from "@/components/theme-toggle"
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -80,6 +82,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
           <Toaster />
           <TailwindIndicator />
+          {/* <ThemeToggle /> */}
         </ThemeProvider>
       </body>
     </html>

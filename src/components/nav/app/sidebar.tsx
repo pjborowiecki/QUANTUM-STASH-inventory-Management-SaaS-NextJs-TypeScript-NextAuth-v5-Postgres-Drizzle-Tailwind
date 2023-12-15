@@ -8,7 +8,7 @@ import { SubscriptionPrompt } from "@/components/subscription-prompt"
 
 export function Sidebar(): JSX.Element {
   return (
-    <aside className="flex min-h-[100vh] w-60 shrink-0 flex-col justify-between border-r bg-accent/20">
+    <aside className="flex h-screen w-60 shrink-0 flex-col justify-between border-r bg-tertiary">
       <div>
         <div className="flex h-20 items-center">
           <Link

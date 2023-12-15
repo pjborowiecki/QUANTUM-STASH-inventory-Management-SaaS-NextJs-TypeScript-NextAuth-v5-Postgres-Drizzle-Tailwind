@@ -14,7 +14,7 @@ export function Banner(): JSX.Element {
       className={
         hidden
           ? "hidden"
-          : "relative flex gap-4 border-b bg-accent/60 py-5 pl-9"
+          : "relative flex gap-4 border-b bg-accent/50 px-7 py-5"
       }
     >
       <div className="flex shrink-0 items-center gap-5">

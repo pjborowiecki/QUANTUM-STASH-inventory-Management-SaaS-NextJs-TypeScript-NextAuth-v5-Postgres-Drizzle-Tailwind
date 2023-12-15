@@ -10,7 +10,7 @@ export default function AppHomeLayout({
   children,
 }: AppHomeLayoutProps): JSX.Element {
   return (
-    <div>
+    <div className="">
       <Subheader />
       <div>{children}</div>
     </div>

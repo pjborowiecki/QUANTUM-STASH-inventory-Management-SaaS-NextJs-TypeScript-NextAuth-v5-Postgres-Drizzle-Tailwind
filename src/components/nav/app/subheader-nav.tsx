@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -10,7 +11,7 @@ export function SubheaderNav(): JSX.Element {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky flex gap-8">
+    <nav className="flex gap-8">
       {sidebarItems[0]?.subitems?.map((subitem) => (
         <Link
           key={subitem.href}
