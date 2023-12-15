@@ -1,29 +1,25 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-
 export function InventorySummary(): JSX.Element {
   return (
-    <Card className="flex h-48 w-1/3 flex-col rounded-md bg-secondary/10">
-      <CardHeader className="bg-secondary/20 py-4">
-        <CardTitle className="font-semibold capitalize tracking-wide">
+    <div className="flex h-48 w-full flex-col whitespace-nowrap rounded-md border bg-tertiary transition-all duration-300 ease-in-out hover:bg-secondary/30 xl:w-1/3">
+      <div className="flex h-16 items-center bg-secondary/20 px-5">
+        <h3 className="font-semibold capitalize tracking-wide">
           Inventory Summary
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex h-full flex-col justify-center border-t py-0">
-        <div className="flex items-center justify-between py-4">
+        </h3>
+      </div>
+      <div className="flex h-full flex-col justify-center border-t px-5">
+        <div className="flex items-center justify-between border-b py-4">
           <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
             Quantity in Hand
           </p>
-          <span className="px-1 text-base font-semibold">0</span>
+          <p className="px-1 text-xl font-semibold">0</p>
         </div>
-        <Separator />
         <div className="flex items-center justify-between py-4">
           <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
             Quantitiy to be Received
           </p>
-          <span className="px-1 text-base font-semibold">0</span>
+          <p className="px-1 text-xl font-semibold">0</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

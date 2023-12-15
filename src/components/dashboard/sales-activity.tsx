@@ -1,14 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
 export function SalesActivity(): JSX.Element {
   return (
-    <Card className="h-48 w-2/3 rounded-md bg-secondary/10">
-      <CardHeader className="bg-secondary/20 py-4">
-        <CardTitle className="font-semibold capitalize tracking-wide">
+    <div className="flex h-48 w-full flex-col whitespace-nowrap rounded-md border bg-tertiary transition-all duration-300 ease-in-out hover:bg-secondary/30 xl:w-2/3">
+      <div className="flex h-16 items-center bg-secondary/20 px-5">
+        <h3 className="font-semibold capitalize tracking-wide">
           Sales Activity
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex items-center justify-between whitespace-nowrap border-t py-6">
+        </h3>
+      </div>
+      <div className="flex h-full items-center justify-between border-t">
         <div className="flex h-full w-1/4 flex-col items-center justify-center gap-1 border-r px-4">
           <p className="text-3xl font-semibold">0</p>
           <p className="text-xs text-muted-foreground/80">Qty</p>
@@ -40,7 +38,7 @@ export function SalesActivity(): JSX.Element {
             To be invoiced
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

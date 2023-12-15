@@ -1,14 +1,36 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { dashboardSalesOrderSummaryCardSelectOptions } from "@/data/constants"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export function SalesOrderSummary(): JSX.Element {
   return (
-    <Card className="h-96 w-full rounded-md bg-secondary/10">
-      <CardHeader className="bg-secondary/20 py-4">
-        <CardTitle className="font-semibold capitalize tracking-wide">
+    <div className="flex h-96 w-full flex-col whitespace-nowrap rounded-md border bg-tertiary transition-all duration-300 ease-in-out hover:bg-secondary/30">
+      <div className="flex h-16 items-center justify-between bg-secondary/20 px-5">
+        <h3 className="shrink-0 font-semibold capitalize tracking-wide">
           Sales Order Summary
-        </CardTitle>
-      </CardHeader>
-      <CardContent></CardContent>
-    </Card>
+        </h3>
+        <Select>
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Previous Month"></SelectValue>
+          </SelectTrigger>
+          <SelectContent className="bg-tertiary">
+            <SelectGroup>
+              {dashboardSalesOrderSummaryCardSelectOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex h-full flex-col items-center justify-center border-t"></div>
+    </div>
   )
 }
