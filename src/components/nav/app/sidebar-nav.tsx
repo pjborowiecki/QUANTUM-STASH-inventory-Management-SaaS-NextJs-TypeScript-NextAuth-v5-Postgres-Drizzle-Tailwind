@@ -16,6 +16,7 @@ import { Icons } from "@/components/icons"
 
 export function SidebarNav(): JSX.Element {
   const pathname = usePathname()
+
   const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(
     null
   )
@@ -112,7 +113,9 @@ export function SidebarNav(): JSX.Element {
               <Link
                 href={item.href}
                 className={cn(
-                  pathname === item.href
+                  (pathname.startsWith("/app/home") &&
+                    item.href.startsWith("/app/home")) ||
+                    pathname === item.href
                     ? buttonVariants({ variant: "secondary" })
                     : buttonVariants({ variant: "ghost" }),
                   "group flex w-full justify-start gap-2"
@@ -121,7 +124,9 @@ export function SidebarNav(): JSX.Element {
                 <Icon className="h-4 w-4" />
                 <span
                   className={cn(
-                    pathname === item.href
+                    (pathname.startsWith("/app/home") &&
+                      item.href.startsWith("/app/home")) ||
+                      pathname === item.href
                       ? "text-foreground"
                       : "text-muted-foreground",
                     "group-hover:text-foreground"

@@ -10,13 +10,13 @@ export function SubheaderNav(): JSX.Element {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky flex gap-3 text-sm tracking-wide">
+    <nav className="sticky flex gap-6">
       {sidebarItems[0]?.subitems?.map((subitem) => (
         <Link
           key={subitem.href}
           href={subitem.href}
           className={cn(
-            "p-3 text-muted-foreground",
+            "border-b-2 border-transparent px-2 py-3 text-sm font-medium tracking-wide text-muted-foreground transition-all duration-300 ease-in-out hover:text-foreground",
             pathname === subitem.href &&
               "border-b-2 border-foreground text-foreground"
           )}
