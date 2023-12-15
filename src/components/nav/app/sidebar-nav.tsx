@@ -60,7 +60,7 @@ export function SidebarNav(): JSX.Element {
                 <CollapsibleTrigger className="w-full" asChild>
                   <Button
                     variant="ghost"
-                    className="flex w-full items-center justify-between"
+                    className="flex w-full items-center justify-between text-base"
                   >
                     <div className="flex items-center gap-2">
                       <Icon className="h-4 w-4" />
@@ -84,7 +84,7 @@ export function SidebarNav(): JSX.Element {
                       }
                       key={subitem.href}
                       className={cn(
-                        "group flex w-full items-center justify-between gap-2",
+                        "group flex w-full items-center justify-between gap-2 text-base",
                         pathname === subitem.href
                           ? "text-foreground"
                           : "text-muted-foreground"
@@ -118,7 +118,7 @@ export function SidebarNav(): JSX.Element {
                     pathname === item.href
                     ? buttonVariants({ variant: "secondary" })
                     : buttonVariants({ variant: "ghost" }),
-                  "group flex w-full justify-start gap-2"
+                  "group flex w-full justify-start gap-2 text-base"
                 )}
               >
                 <Icon className="h-4 w-4" />
