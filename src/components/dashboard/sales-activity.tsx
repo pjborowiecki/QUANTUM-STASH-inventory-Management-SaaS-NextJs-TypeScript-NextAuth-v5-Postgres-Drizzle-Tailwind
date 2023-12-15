@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-export function DashboardSalesActivity(): JSX.Element {
+export function SalesActivity(): JSX.Element {
   return (
     <Card className="h-48 w-2/3 rounded-md bg-secondary/10">
       <CardHeader className="bg-secondary/20 py-4">
-        <CardTitle className="font-semibold tracking-wide">
+        <CardTitle className="font-semibold capitalize tracking-wide">
           Sales Activity
         </CardTitle>
       </CardHeader>

@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 
-export function DashboardInventorySummary(): JSX.Element {
+export function InventorySummary(): JSX.Element {
   return (
     <Card className="flex h-48 w-1/3 flex-col rounded-md bg-secondary/10">
       <CardHeader className="bg-secondary/20 py-4">
-        <CardTitle className="font-semibold tracking-wide">
+        <CardTitle className="font-semibold capitalize tracking-wide">
           Inventory Summary
         </CardTitle>
       </CardHeader>

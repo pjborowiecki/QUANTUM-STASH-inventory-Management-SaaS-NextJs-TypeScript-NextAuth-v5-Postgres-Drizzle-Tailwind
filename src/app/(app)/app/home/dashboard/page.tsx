@@ -1,17 +1,38 @@
-import { DashboardBanner } from "@/components/dashboard/dashboard-banner"
-import { DashboardInventorySummary } from "@/components/dashboard/dashboard-inventory-summary"
-import { DashboardSalesActivity } from "@/components/dashboard/dashboard-sales-activity"
+import { Banner } from "@/components/dashboard/banner"
+import { Footer } from "@/components/dashboard/footer"
+import { InventorySummary } from "@/components/dashboard/inventory-summary"
+import { ProductDetails } from "@/components/dashboard/product-details"
+import { PurchaseOrder } from "@/components/dashboard/purchase-order"
+import { SalesActivity } from "@/components/dashboard/sales-activity"
+import { SalesOrder } from "@/components/dashboard/sales-order"
+import { SalesOrderSummary } from "@/components/dashboard/sales-order-summary"
+import { TopSellingItems } from "@/components/dashboard/top-selling-items"
 
 export default function AppHomeDashboardPage(): JSX.Element {
   return (
     <div>
-      <DashboardBanner />
-      <div className="w-full max-w-8xl px-4 py-5">
+      <Banner />
+      <div className="flex w-full max-w-8xl flex-col gap-5 p-5">
         <div className="flex w-full gap-5">
-          <DashboardSalesActivity />
-          <DashboardInventorySummary />
+          <SalesActivity />
+          <InventorySummary />
+        </div>
+
+        <div className="flex w-full gap-5">
+          <ProductDetails />
+          <TopSellingItems />
+        </div>
+
+        <div className="flex w-full gap-5">
+          <PurchaseOrder />
+          <SalesOrder />
+        </div>
+
+        <div className="flex w-full">
+          <SalesOrderSummary />
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

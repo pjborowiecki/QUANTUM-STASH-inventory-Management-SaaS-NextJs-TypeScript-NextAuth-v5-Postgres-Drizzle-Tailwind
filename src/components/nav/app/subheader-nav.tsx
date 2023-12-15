@@ -10,7 +10,7 @@ export function SubheaderNav(): JSX.Element {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky flex gap-6">
+    <nav className="sticky flex gap-8">
       {sidebarItems[0]?.subitems?.map((subitem) => (
         <Link
           key={subitem.href}

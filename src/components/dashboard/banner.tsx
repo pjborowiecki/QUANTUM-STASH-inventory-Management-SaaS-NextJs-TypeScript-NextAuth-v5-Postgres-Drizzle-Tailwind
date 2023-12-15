@@ -6,7 +6,7 @@ import Balancer from "react-wrap-balancer"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 
-export function DashboardBanner(): JSX.Element {
+export function Banner(): JSX.Element {
   const [hidden, setHidden] = React.useState<boolean>(false)
 
   return (
@@ -14,10 +14,10 @@ export function DashboardBanner(): JSX.Element {
       className={
         hidden
           ? "hidden"
-          : "relative flex gap-4 border-b bg-accent/60 px-6 py-5"
+          : "relative flex gap-4 border-b bg-accent/60 py-5 pl-9"
       }
     >
-      <div className="flex shrink-0 items-center gap-6">
+      <div className="flex shrink-0 items-center gap-5">
         <Icons.creditCard
           className="h-20 w-20 text-muted-foreground"
           aria-hidden="true"
@@ -45,7 +45,7 @@ export function DashboardBanner(): JSX.Element {
 
         <Button
           variant="ghost"
-          className="absolute right-1 top-2"
+          className="absolute right-0 top-2"
           onClick={() => setHidden(true)}
           aria-label="Close the promo banner"
         >
