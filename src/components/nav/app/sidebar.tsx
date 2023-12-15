@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { SidebarNav } from "@/components/nav/app/sidebar-nav"
+import { SubscriptionPrompt } from "@/components/subscription-prompt"
 
 export function Sidebar(): JSX.Element {
   return (
@@ -24,14 +25,17 @@ export function Sidebar(): JSX.Element {
         <SidebarNav />
       </div>
 
-      <div className="flex h-16 items-center justify-center border-t px-2">
-        <Button
-          variant="secondary"
-          aria-label="Expand or collapse sidebar"
-          className="w-full"
-        >
-          <Icons.chevronLeft className="h-4 w-4" aria-hidden="true" />
-        </Button>
+      <div>
+        <SubscriptionPrompt />
+        <div className="flex h-16 items-center justify-center border-t px-2">
+          <Button
+            variant="secondary"
+            aria-label="Expand or collapse sidebar"
+            className="w-full"
+          >
+            <Icons.chevronLeft className="h-4 w-4" aria-hidden="true" />
+          </Button>
+        </div>
       </div>
     </aside>
   )
