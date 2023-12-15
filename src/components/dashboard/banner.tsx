@@ -14,10 +14,10 @@ export function Banner(): JSX.Element {
       className={
         hidden
           ? "hidden"
-          : "relative flex gap-4 border-b bg-accent/50 px-7 py-5"
+          : "relative flex w-full gap-4 border-b bg-accent/50 p-5"
       }
     >
-      <div className="flex shrink-0 items-center gap-5">
+      <div className="flex w-1/2 items-center gap-5">
         <Icons.creditCard
           className="h-20 w-20 text-muted-foreground"
           aria-hidden="true"
@@ -35,21 +35,23 @@ export function Banner(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-1 grow items-center justify-center">
+      <div className="flex w-1/2 items-center justify-center gap-4">
         <Button
+          size="lg"
           className="px-8 font-semibold uppercase"
           aria-label="Enable online payments"
         >
-          enable
+          enable now
         </Button>
 
         <Button
-          variant="ghost"
-          className="absolute right-0 top-2"
+          variant="secondary"
+          size="lg"
+          className="px-8 font-semibold uppercase"
+          aria-label="Hide promotional banner"
           onClick={() => setHidden(true)}
-          aria-label="Close the promo banner"
         >
-          <Icons.close aria-hidden="true" className="h-5 w-5" />
+          hide banner
         </Button>
       </div>
     </div>
