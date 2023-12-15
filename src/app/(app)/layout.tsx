@@ -13,7 +13,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <Sidebar />
       <div className="min-h-screen w-full">
         <Header />
-        <main className="p-4">{children}</main>
+        <main>{children}</main>
       </div>
     </div>
   )

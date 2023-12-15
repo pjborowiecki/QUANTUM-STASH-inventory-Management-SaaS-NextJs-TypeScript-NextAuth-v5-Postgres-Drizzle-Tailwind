@@ -41,7 +41,7 @@ export function SidebarNav(): JSX.Element {
   }, [pathname])
 
   return (
-    <nav className="space-y-2 px-2 py-3">
+    <nav className="space-y-2 px-2 py-5">
       {sidebarItems.map((item) => {
         const Icon = Icons[item.icon as keyof typeof Icons]
 
@@ -49,7 +49,9 @@ export function SidebarNav(): JSX.Element {
 
         return (
           <div key={item.href}>
-            {item.subitems && item.subitems.length > 0 ? (
+            {item.subitems &&
+            item.subitems.length > 0 &&
+            item.title !== "Home" ? (
               <Collapsible
                 open={isCollapsibleOpen}
                 onOpenChange={() => handleCollapsibleToggle(item.href)}
@@ -73,14 +75,19 @@ export function SidebarNav(): JSX.Element {
                     )}
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="w-full pl-6">
+                <CollapsibleContent className="w-full space-y-1 py-1 pl-6">
                   {item.subitems.map((subitem) => (
                     <Button
                       variant={
                         pathname === subitem.href ? "secondary" : "ghost"
                       }
                       key={subitem.href}
-                      className="group flex w-full items-center justify-between gap-2 text-muted-foreground"
+                      className={cn(
+                        "group flex w-full items-center justify-between gap-2",
+                        pathname === subitem.href
+                          ? "text-foreground"
+                          : "text-muted-foreground"
+                      )}
                     >
                       <Link
                         href={subitem.href}
@@ -108,11 +115,20 @@ export function SidebarNav(): JSX.Element {
                   pathname === item.href
                     ? buttonVariants({ variant: "secondary" })
                     : buttonVariants({ variant: "ghost" }),
-                  "flex w-full justify-start gap-2"
+                  "group flex w-full justify-start gap-2"
                 )}
               >
                 <Icon className="h-4 w-4" />
-                <span className="text-muted-foreground">{item.title}</span>
+                <span
+                  className={cn(
+                    pathname === item.href
+                      ? "text-foreground"
+                      : "text-muted-foreground",
+                    "group-hover:text-foreground"
+                  )}
+                >
+                  {item.title}
+                </span>
               </Link>
             )}
           </div>

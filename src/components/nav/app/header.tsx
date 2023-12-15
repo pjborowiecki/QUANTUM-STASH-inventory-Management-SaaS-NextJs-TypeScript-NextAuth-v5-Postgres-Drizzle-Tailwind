@@ -18,7 +18,7 @@ import { Search } from "@/components/search"
 
 export function Header(): JSX.Element {
   return (
-    <header className="flex h-20 items-center justify-between gap-8 border-b px-4">
+    <header className="flex h-20 items-center justify-between gap-8 border-b bg-accent/20 px-4">
       <div className="flex h-full items-center gap-2">
         <CustomTooltip text="Recent Activity">
           <Link
@@ -66,7 +66,7 @@ export function Header(): JSX.Element {
             className="flex max-w-[160px] items-center justify-center gap-2 px-3"
             aria-label="TODO"
           >
-            <span>BillQuill</span>
+            <span>Piotr Borowieci</span>
             <Icons.chevronDown aria-hidden="true" className="h-4 w-4" />
           </Button>
         </div>
@@ -87,7 +87,7 @@ export function Header(): JSX.Element {
                 )} */}
                   <AvatarFallback className="rounded-md text-xs capitalize">
                     {/* {user.email && user.email.charAt(0)} */}
-                    PB
+                    <Icons.user className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
               </Button>
