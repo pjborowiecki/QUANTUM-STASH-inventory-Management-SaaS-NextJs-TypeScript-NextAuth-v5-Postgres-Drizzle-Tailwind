@@ -15,8 +15,9 @@ export function SubheaderNav(): JSX.Element {
         <Link
           key={subitem.href}
           href={subitem.href}
+          aria-label={`Got to ${subitem.title}`}
           className={cn(
-            "border-b-2 border-transparent px-2 py-3 text-sm font-medium tracking-wide text-muted-foreground transition-all duration-300 ease-in-out hover:text-foreground",
+            "border-b-2 border-transparent px-1 py-2 text-sm font-normal tracking-wide text-muted-foreground transition-all duration-300 ease-in-out hover:text-foreground",
             pathname === subitem.href &&
               "border-b-2 border-foreground text-foreground"
           )}
