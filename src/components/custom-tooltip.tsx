@@ -1,5 +1,6 @@
 import * as React from "react"
 
+import { cn } from "@/lib/utils"
 import {
   Tooltip,
   TooltipContent,
@@ -26,7 +27,7 @@ export function CustomTooltip({
         <TooltipTrigger asChild className={triggerStyles}>
           {children}
         </TooltipTrigger>
-        <TooltipContent className={contentStyles}>
+        <TooltipContent className={cn("z-[99]", contentStyles)}>
           <p>{text}</p>
         </TooltipContent>
       </Tooltip>

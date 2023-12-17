@@ -10,7 +10,8 @@ import { ThemeProvider } from "@/providers/theme-provider"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeToggle } from "@/components/theme-toggle"
+
+// import { ThemeToggle } from "@/components/theme-toggle"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -81,7 +82,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
           <Toaster />
           <TailwindIndicator />
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </ThemeProvider>
       </body>
     </html>

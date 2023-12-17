@@ -18,8 +18,19 @@ export interface DashboardCardSelectOption {
   title: string
 }
 
+export type InventoryItemsSelectOption = DashboardCardSelectOption
+export type InventoryItemGroupsSelectOption = DashboardCardSelectOption
+
 export interface DashboardSalesActivityItem {
   quantity: 0
   unit: string
   label: string
+}
+
+export interface InventoryOption {
+  title: string
+  description: string
+  buttonText: string
+  icon: string
+  href: string
 }

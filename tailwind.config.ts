@@ -58,7 +58,11 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      height: {
+        "18": "72px",
+      },
       width: {
+        "18": "72px",
         "66": "264px",
       },
       maxWidth: {
