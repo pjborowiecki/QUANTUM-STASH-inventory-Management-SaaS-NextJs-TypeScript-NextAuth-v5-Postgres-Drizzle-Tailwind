@@ -2,7 +2,7 @@ import Balancer from "react-wrap-balancer"
 
 export default function AppHomeAnnouncementsPage(): JSX.Element {
   return (
-    <div className="flex h-full flex-1 flex-col items-center space-y-2 p-5">
+    <div className="flex h-full flex-1 flex-col items-center space-y-2">
       <h2 className="text-lg font-semibold">Never miss an announcement</h2>
       <p className="text-muted-foreground">
         <Balancer>

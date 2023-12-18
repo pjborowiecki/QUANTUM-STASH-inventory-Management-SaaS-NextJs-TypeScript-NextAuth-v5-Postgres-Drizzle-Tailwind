@@ -4,7 +4,7 @@ Quantum Stash is a modern inventory management system, designed for the future o
 
 ![public/images/screenshots/screenshot_1](./public/images/screenshots/screenshot_1.png)
 
-<!-- ![public/images/screenshots/screenshot_2](./public/images/screenshots/screenshot_2.png) -->
+![public/images/screenshots/screenshot_2](./public/images/screenshots/screenshot_2.png)
 
 <br />
 

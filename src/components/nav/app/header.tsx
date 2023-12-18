@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { CustomTooltip } from "@/components/custom-tooltip"
 import { Icons } from "@/components/icons"
+import { AppsMenu } from "@/components/nav/app/menus/apps-menu"
 import { NotificationsMenu } from "@/components/nav/app/menus/notifications-menu"
 import { OrganizationMenu } from "@/components/nav/app/menus/organization-menu"
 import { ReferAndEarnMenu } from "@/components/nav/app/menus/refer-and-earn-menu"
@@ -53,9 +54,7 @@ export function Header(): JSX.Element {
         <UserMenu />
 
         <div className="flex items-center justify-center">
-          <Button variant="outline" aria-label="TODO" className="p-2">
-            <Icons.layoutGrid className="h-5 w-5" aria-hidden="true" />
-          </Button>
+          <AppsMenu />
         </div>
       </div>
     </header>

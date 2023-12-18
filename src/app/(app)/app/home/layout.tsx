@@ -12,7 +12,7 @@ export default function AppHomeLayout({
   return (
     <div>
       <Subheader />
-      <div>{children}</div>
+      <div className="p-5">{children}</div>
     </div>
   )
 }
