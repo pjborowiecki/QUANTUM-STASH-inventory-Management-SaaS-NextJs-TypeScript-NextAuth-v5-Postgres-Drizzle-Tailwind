@@ -19,7 +19,7 @@ export function Banner(): JSX.Element {
     >
       <div className="flex w-1/2 items-center gap-5">
         <Icons.creditCard
-          className="h-20 w-20 text-muted-foreground"
+          className="h-20 w-20 shrink-0 text-muted-foreground"
           aria-hidden="true"
         />
         <div className="max-w-md space-y-2">

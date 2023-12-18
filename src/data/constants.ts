@@ -193,5 +193,5 @@ export const inventoryItemGroupsSelectOptions = [
   {
     value: "inactive-item-groups",
     title: "Inactive Item Groups",
-  }
+  },
 ] satisfies InventoryItemGroupsSelectOption[]

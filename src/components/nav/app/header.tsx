@@ -18,7 +18,7 @@ import { Search } from "@/components/search"
 
 export function Header(): JSX.Element {
   return (
-    <header className="sticky top-0 z-[99] flex h-20 items-center justify-between gap-8 border-b bg-tertiary px-5">
+    <header className="sticky top-0 z-[50] flex h-20 items-center justify-between gap-8 border-b bg-tertiary px-5">
       <div className="flex h-full items-center gap-2">
         <CustomTooltip text="Recent Activity">
           <Link
