@@ -1,4 +1,4 @@
-import { dashboardSalesActivityItems } from "@/data/constants"
+import { dashboardSalesActivityItems } from "@/data/constants/dashboard"
 import { cn } from "@/lib/utils"
 import { SalesActivityItem } from "@/components/dashboard/sales-activity-item"
 

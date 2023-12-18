@@ -1,4 +1,4 @@
-import { inventoryOptions } from "@/data/constants"
+import { inventoryOptions } from "@/data/constants/inventory"
 import { OptionCard } from "@/components/inventory/option-card"
 import { ItemsSubheader } from "@/components/inventory/subheaders/items-subheader"
 

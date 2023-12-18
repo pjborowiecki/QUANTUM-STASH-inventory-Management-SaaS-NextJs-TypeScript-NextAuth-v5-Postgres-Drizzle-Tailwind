@@ -1,4 +1,4 @@
-import { inventoryItemsSelectOptions } from "@/data/constants"
+import { inventoryItemsSelectOptions } from "@/data/constants/inventory"
 import {
   Select,
   SelectContent,

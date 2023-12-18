@@ -34,3 +34,14 @@ export interface InventoryOption {
   icon: string
   href: string
 }
+
+export interface SettingsOptionItem {
+  title: string
+  href: string
+}
+
+export interface SettingsOption {
+  title: string
+  icon: string
+  items: SettingsOptionItem[]
+}

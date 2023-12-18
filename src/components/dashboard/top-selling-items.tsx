@@ -1,4 +1,4 @@
-import { dashboardCardSelectOptions } from "@/data/constants"
+import { dashboardCardSelectOptions } from "@/data/constants/dashboard"
 import {
   Select,
   SelectContent,
