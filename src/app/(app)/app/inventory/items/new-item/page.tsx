@@ -1,3 +1,9 @@
+import { AddItemForm } from "@/components/forms/inventory/add-item-form"
+
 export default function AppInventoryItemsNewItemPage(): JSX.Element {
-  return <div>App Inventory Items NewItem Page</div>
+  return (
+    <div>
+      <AddItemForm />
+    </div>
+  )
 }

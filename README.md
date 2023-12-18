@@ -39,5 +39,7 @@ You can check the deployed demo version [TODO: here]()
 - [ ] Feature 2
 - [ ] Add skeleton loading states for all pages
 
-https://www.youtube.com/watch?v=GM-wut3DhUM&list=PLDn5_2K0bUmcBCllw3MHfCav6pHjJJ99Y&index=3
-5:51
+## ToDo
+
+- [ ] Collapse any open collapsibles in the sidebar nav when collapsing the sidebar itself
+- [ ]

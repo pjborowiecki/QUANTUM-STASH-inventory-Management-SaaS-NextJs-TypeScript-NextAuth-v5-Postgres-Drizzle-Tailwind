@@ -1,3 +1,3 @@
 export default function AppDocumentsPage(): JSX.Element {
-  return <div>App Documents Page</div>
+  return <div className="p-5">TODO: App Documents Page</div>
 }

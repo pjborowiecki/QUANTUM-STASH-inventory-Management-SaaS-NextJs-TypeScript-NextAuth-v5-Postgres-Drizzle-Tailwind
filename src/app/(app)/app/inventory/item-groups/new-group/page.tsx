@@ -1,3 +1,9 @@
+import { AddItemGroupForm } from "@/components/forms/inventory/add-item-group-form"
+
 export default function AppInventoryItemGroupsNewGroupPage(): JSX.Element {
-  return <div>App Inventory ItemGroups NewGroup Page</div>
+  return (
+    <div>
+      <AddItemGroupForm />
+    </div>
+  )
 }

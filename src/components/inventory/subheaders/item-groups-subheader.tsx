@@ -15,11 +15,11 @@ export function ItemGroupsSubheader(): JSX.Element {
       <ItemGroupsSelect />
 
       <div className="flex items-center gap-2">
-        <CustomTooltip text="Add New Item">
+        <CustomTooltip text="Add New Item Group">
           <Link
-            href="/app/inventory/items/new-item"
+            href="/app/inventory/items/new-item-group"
             className={cn(buttonVariants(), "gap-1")}
-            aria-label="Add new item"
+            aria-label="Add new item group"
           >
             <Icons.plus aria-hidden="true" className="h-4 w-4" />
             <span>New</span>

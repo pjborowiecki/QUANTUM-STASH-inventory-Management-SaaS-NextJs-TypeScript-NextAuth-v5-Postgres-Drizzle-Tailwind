@@ -1,3 +1,3 @@
 export default function AppHomeIntegrationsPage(): JSX.Element {
-  return <div>App Home Integrations Page</div>
+  return <div className="p-5">TODO: App Home Integrations Page</div>
 }
