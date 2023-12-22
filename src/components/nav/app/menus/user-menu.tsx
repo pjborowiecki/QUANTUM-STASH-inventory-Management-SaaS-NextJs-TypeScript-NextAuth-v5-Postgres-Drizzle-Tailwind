@@ -24,11 +24,11 @@ export function UserMenu(): JSX.Element {
           "transition-all duration-300 ease-in-out hover:opacity-70"
         )}
       >
-        <Avatar className="rounded-md">
+        <Avatar className="h-9 w-9 rounded-md">
           {user.image ? (
             <AvatarImage src={user.image} className="" />
           ) : (
-            <AvatarFallback className="rounded-md">
+            <AvatarFallback className="h-9 w-9 rounded-md">
               <Icons.user className="h-4 w-4" />
             </AvatarFallback>
           )}

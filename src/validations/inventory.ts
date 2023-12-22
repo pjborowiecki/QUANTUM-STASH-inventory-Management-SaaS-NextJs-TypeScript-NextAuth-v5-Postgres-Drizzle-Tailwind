@@ -1,3 +1,15 @@
 import * as z from "zod"
 
-export const addItemSchema = z.object({})
+export const addCategorySchema = z.object({
+  name: z.string(),
+  description: z.string(),
+})
+
+export const addItemSchema = z.object({
+  type: z.string(),
+  category: z.string(),
+  name: z.string(),
+  sku: z.string(),
+  unit: z.string(),
+  returnable: z.boolean(),
+})

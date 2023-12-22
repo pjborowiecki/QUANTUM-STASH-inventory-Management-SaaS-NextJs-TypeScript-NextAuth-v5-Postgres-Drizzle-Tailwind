@@ -11,7 +11,7 @@ import { TopSellingItems } from "@/components/dashboard/top-selling-items"
 export default function AppHomeDashboardPage(): JSX.Element {
   return (
     <div>
-      <div className="flex w-full max-w-8xl flex-col gap-5">
+      <div className="flex w-full max-w-8xl flex-col gap-5 p-5">
         <Banner />
 
         <div className="flex w-full flex-col gap-5 xl:flex-row">

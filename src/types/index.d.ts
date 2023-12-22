@@ -1,3 +1,5 @@
+import { type dashboardCardSelectOptions } from "@/data/constants/dashboard"
+
 export interface NavItem {
   title: string
   href: string
@@ -20,6 +22,8 @@ export interface DashboardCardSelectOption {
 
 export type InventoryItemsSelectOption = DashboardCardSelectOption
 export type InventoryItemGroupsSelectOption = DashboardCardSelectOption
+export type InventoryCompositeItemSelectOption = dashboardCardSelectOptions
+export type QuickCreateItem = NavItemWithChildren
 
 export interface DashboardSalesActivityItem {
   quantity: 0

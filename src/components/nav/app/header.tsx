@@ -1,12 +1,13 @@
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { CustomTooltip } from "@/components/custom-tooltip"
 import { Icons } from "@/components/icons"
 import { AppsMenu } from "@/components/nav/app/menus/apps-menu"
 import { NotificationsMenu } from "@/components/nav/app/menus/notifications-menu"
 import { OrganizationMenu } from "@/components/nav/app/menus/organization-menu"
+import { QuickCreateMenu } from "@/components/nav/app/menus/quick-create-menu"
 import { ReferAndEarnMenu } from "@/components/nav/app/menus/refer-and-earn-menu"
 import { UserMenu } from "@/components/nav/app/menus/user-menu"
 import { Search } from "@/components/search"
@@ -29,13 +30,8 @@ export function Header(): JSX.Element {
       </div>
 
       <div className="flex items-center justify-center gap-2">
-        <CustomTooltip text="Quick Create">
-          <Button variant="outline" aria-label="Quick Create" className="p-3">
-            <Icons.plus aria-hidden="true" className="h-4 w-4" />
-          </Button>
-        </CustomTooltip>
-
         <div className="flex items-center justify-center">
+          <QuickCreateMenu />
           <ReferAndEarnMenu />
           <NotificationsMenu />
 

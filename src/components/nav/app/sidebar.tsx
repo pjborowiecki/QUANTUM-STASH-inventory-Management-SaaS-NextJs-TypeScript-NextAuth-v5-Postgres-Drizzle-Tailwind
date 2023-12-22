@@ -14,8 +14,6 @@ import { SubscriptionPrompt } from "@/components/subscription-prompt"
 export function Sidebar(): JSX.Element {
   const [collapsed, setCollapsed] = React.useState<boolean>(false)
 
-  console.log("COLLAPSED", collapsed)
-
   return (
     <aside
       className={cn(

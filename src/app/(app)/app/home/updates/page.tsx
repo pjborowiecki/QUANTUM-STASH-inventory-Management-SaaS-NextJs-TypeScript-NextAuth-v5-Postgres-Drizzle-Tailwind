@@ -1,3 +1,3 @@
 export default function AppdHomeUpdatesPage(): JSX.Element {
-  return <div>App Home Updates Page</div>
+  return <div className="p-5">App Home Updates Page</div>
 }

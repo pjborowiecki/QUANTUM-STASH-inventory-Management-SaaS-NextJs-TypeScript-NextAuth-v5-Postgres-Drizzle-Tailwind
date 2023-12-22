@@ -1,3 +1,3 @@
 export default function AppInventoryInventoryAdjustmentsPage(): JSX.Element {
-  return <div>App Inventory Inventory Adjustments Page</div>
+  return <div className="p-5">App Inventory Inventory Adjustments Page</div>
 }

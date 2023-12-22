@@ -1,4 +1,4 @@
-import { type AppSidebarNavItem } from "@/types"
+import { type AppSidebarNavItem, type QuickCreateItem } from "@/types"
 
 export const sidebarItems = [
   {
@@ -30,19 +30,44 @@ export const sidebarItems = [
     icon: "inventory",
     subitems: [
       {
+        title: "Categories",
+        href: "/app/inventory/categories",
+        hrefPlus: "/app/inventory/categories/new-category",
+      },
+      {
         title: "Items",
         href: "/app/inventory/items",
         hrefPlus: "/app/inventory/items/new-item",
       },
       {
+        title: "Composite Items",
+        href: "/app/inventory/composite-items",
+        hrefPlus: "/app/inventory/composite-items/new-composite-item",
+      },
+      {
         title: "Item Groups",
         href: "/app/inventory/item-groups",
-        hrefPlus: "/app/inventory/item-groups/new-group",
+        hrefPlus: "/app/inventory/item-groups/new-item-group",
       },
       {
         title: "Inventory Adjustments",
         href: "/app/inventory/inventory-adjustments",
         hrefPlus: "/app/inventory/inventory-adjustments/new-adjustment",
+      },
+      {
+        title: "Brands",
+        href: "/app/inventory/brands",
+        hrefPlus: "/app/inventory/brands/new-brand",
+      },
+      {
+        title: "Units",
+        href: "/app/inventory/units",
+        hrefPlus: "/app/inventory/units/new-unit",
+      },
+      {
+        title: "Price Lists",
+        href: "/app/inventory/price-lists",
+        hrefPlus: "/app/inventory/price-lists/new-list",
       },
     ],
   },
@@ -140,6 +165,11 @@ export const sidebarItems = [
     ],
   },
   {
+    title: "Warehouses",
+    href: "/app/warehouses",
+    icon: "warehouse",
+  },
+  {
     title: "Integrations",
     href: "/app/integrations",
     icon: "integrations",
@@ -155,3 +185,103 @@ export const sidebarItems = [
     icon: "documents",
   },
 ] satisfies AppSidebarNavItem[]
+
+export const quickCreateItems = [
+  {
+    title: "General",
+    href: "",
+    icon: "layoutGrid",
+    subitems: [
+      {
+        title: "Add Users",
+        href: "",
+      },
+      {
+        title: "Item",
+        href: "",
+      },
+      {
+        title: "Item Groups",
+        href: "",
+      },
+      {
+        title: "Inventory Adjustments",
+        href: "",
+      },
+    ],
+  },
+  {
+    title: "Sales",
+    href: "",
+    icon: "shoppingCart",
+    subitems: [
+      {
+        title: "Customer",
+        href: "",
+      },
+      {
+        title: "Invoices",
+        href: "",
+      },
+      {
+        title: "Sales Receipts",
+        href: "",
+      },
+      {
+        title: "Sales Order",
+        href: "",
+      },
+      {
+        title: "Packages",
+        href: "",
+      },
+      {
+        title: "Shipment",
+        href: "",
+      },
+      {
+        title: "Customer Payment",
+        href: "",
+      },
+      {
+        title: "Credit Notes",
+        href: "",
+      },
+    ],
+  },
+  {
+    title: "Purchases",
+    href: "",
+    icon: "shoppingBasket",
+    subitems: [
+      {
+        title: "Vendor",
+        href: "",
+      },
+      {
+        title: "Expenses",
+        href: "",
+      },
+      {
+        title: "Bills",
+        href: "",
+      },
+      {
+        title: "Purchase Orders",
+        href: "",
+      },
+      {
+        title: "Purchase Receives",
+        href: "",
+      },
+      {
+        title: "Vendor Payment",
+        href: "",
+      },
+      {
+        title: "Vendor Credits",
+        href: "",
+      },
+    ],
+  },
+] satisfies QuickCreateItem[]

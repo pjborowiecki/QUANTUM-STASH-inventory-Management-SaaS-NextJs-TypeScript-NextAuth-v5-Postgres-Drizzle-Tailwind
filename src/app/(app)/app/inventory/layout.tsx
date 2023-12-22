@@ -7,5 +7,5 @@ interface AppInventoryLayoutProps {
 export default function AppInventoryLayout({
   children,
 }: AppInventoryLayoutProps): JSX.Element {
-  return <div className="p-5">{children}</div>
+  return <div>{children}</div>
 }

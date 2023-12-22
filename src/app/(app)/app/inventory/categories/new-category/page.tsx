@@ -5,23 +5,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { AddItemForm } from "@/components/forms/inventory/add-item-form"
+import { AddCategoryForm } from "@/components/forms/inventory/add-category-form"
 import { SubSubHeader } from "@/components/inventory/subheaders/subsubheader"
 
-export default function AppInventoryItemsNewItemPage(): JSX.Element {
+export default function AppInventoryCategoriesNewCategoryPage(): JSX.Element {
   return (
     <div>
       <SubSubHeader />
       <div className="p-5">
         <Card className="max-w-6xl rounded-md bg-tertiary">
           <CardHeader className="px-5 pt-5">
-            <CardTitle className="text-2xl">New Inventory Item</CardTitle>
+            <CardTitle className="text-2xl">New Category</CardTitle>
             <CardDescription className="text-base">
-              Add new inventory item
+              Define new category of items
             </CardDescription>
           </CardHeader>
           <CardContent className="px-5 pt-2">
-            <AddItemForm />
+            <AddCategoryForm />
           </CardContent>
         </Card>
       </div>
