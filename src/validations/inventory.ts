@@ -13,3 +13,8 @@ export const addItemSchema = z.object({
   unit: z.string(),
   returnable: z.boolean(),
 })
+
+export const addUnitSchema = z.object({
+  name: z.string(),
+  abbreviation: z.string(),
+})
