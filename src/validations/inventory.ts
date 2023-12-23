@@ -18,3 +18,7 @@ export const addUnitSchema = z.object({
   name: z.string(),
   abbreviation: z.string(),
 })
+
+export const addBrandSchema = z.object({
+  name: z.string(),
+})
