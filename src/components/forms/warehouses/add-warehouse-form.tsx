@@ -21,6 +21,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
@@ -35,9 +43,9 @@ export function AddWarehouseForm(): JSX.Element {
     resolver: zodResolver(addWarehouseSchema),
     defaultValues: {
       name: "",
-      type: "",
-      description: "",
+      type: "branch",
       location: "",
+      description: "",
     },
   })
 
@@ -67,44 +75,68 @@ export function AddWarehouseForm(): JSX.Element {
         className="grid w-full gap-5"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem className="w-1/2">
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="Warehouse name" {...field} />
-              </FormControl>
-              <FormMessage className="pt-2 sm:text-sm" />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-5">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Warehouse name" {...field} />
+                </FormControl>
+                <FormMessage className="pt-2 sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Type</FormLabel>
+                <Select
+                  value={field.value}
+                  onValueChange={(value: typeof field.value) =>
+                    field.onChange(value)
+                  }
+                >
+                  <FormControl>
+                    <SelectTrigger className="capitalize">
+                      <SelectValue placeholder={field.value} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      {Object.values(["branch", "main"]).map((option) => (
+                        <SelectItem
+                          key={option}
+                          value={option}
+                          className="capitalize"
+                        >
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}
-          name="type"
+          name="location"
           render={({ field }) => (
-            <FormItem className="w-1/2">
-              <FormLabel>Type</FormLabel>
+            <FormItem>
+              <FormLabel>Location</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Warehouse type" {...field} />
-              </FormControl>
-              <FormMessage className="pt-2 sm:text-sm" />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem className="w-1/2">
-              <FormLabel>Type</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Warehouse description"
-                  className="min-h-[120px]"
+                <Input
+                  type="text"
+                  placeholder="Warehouse location"
                   {...field}
                 />
               </FormControl>
@@ -115,14 +147,14 @@ export function AddWarehouseForm(): JSX.Element {
 
         <FormField
           control={form.control}
-          name="location"
+          name="description"
           render={({ field }) => (
-            <FormItem className="w-1/2">
-              <FormLabel>Type</FormLabel>
+            <FormItem>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Warehouse location"
+                <Textarea
+                  placeholder="Warehouse description"
+                  className="min-h-[120px]"
                   {...field}
                 />
               </FormControl>
