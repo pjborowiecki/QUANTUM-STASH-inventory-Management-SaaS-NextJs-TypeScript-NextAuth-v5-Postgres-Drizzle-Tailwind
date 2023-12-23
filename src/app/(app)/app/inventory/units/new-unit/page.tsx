@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { AddUnitForm } from "@/components/forms/inventory/add-unit-form"
-import { SubSubHeader } from "@/components/inventory/subheaders/subsubheader"
+import { AddUnitForm } from "@/components/forms/inventory/units/add-unit-form"
+import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export default function AppInventoryUnitsNewUnitPage(): JSX.Element {
   return (

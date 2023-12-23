@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { AddCategoryForm } from "@/components/forms/inventory/add-category-form"
-import { SubSubHeader } from "@/components/inventory/subheaders/subsubheader"
+import { AddCategoryForm } from "@/components/forms/inventory/categories/add-category-form"
+import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export default function AppInventoryCategoriesNewCategoryPage(): JSX.Element {
   return (

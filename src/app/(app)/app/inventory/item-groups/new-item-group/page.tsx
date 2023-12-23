@@ -1,5 +1,5 @@
-import { AddItemGroupForm } from "@/components/forms/inventory/add-item-group-form"
-import { SubSubHeader } from "@/components/inventory/subheaders/subsubheader"
+import { AddItemGroupForm } from "@/components/forms/inventory/item-group/add-item-group-form"
+import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export default function AppInventoryItemGroupsNewItemGroupPage(): JSX.Element {
   return (

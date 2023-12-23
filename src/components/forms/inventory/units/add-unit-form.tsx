@@ -3,8 +3,8 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewCategory } from "@/actions/inventory/categories"
-import { addCategorySchema } from "@/validations/inventory"
+import { addNewUnit } from "@/actions/inventory/units"
+import { addUnitSchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -21,37 +21,36 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type AddCategoryFormInputs = z.infer<typeof addCategorySchema>
+type AddUnitFormInputs = z.infer<typeof addUnitSchema>
 
-export function AddCategoryForm(): JSX.Element {
+export function AddUnitForm(): JSX.Element {
   const { toast } = useToast()
   const router = useRouter()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<AddCategoryFormInputs>({
-    resolver: zodResolver(addCategorySchema),
+  const form = useForm<AddUnitFormInputs>({
+    resolver: zodResolver(addUnitSchema),
     defaultValues: {
       name: "",
-      description: "",
+      abbreviation: "",
     },
   })
 
-  function onSubmit(formData: AddCategoryFormInputs) {
+  function onSubmit(formData: AddUnitFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewCategory({
+        const response = await addNewUnit({
           name: formData.name,
-          description: formData.description,
+          abbreviation: formData.abbreviation,
         })
 
         if (response === "success") {
-          toast({ title: "Success!", description: "New category added" })
+          toast({ title: "Success!", description: "New unit added" })
         }
 
-        router.push("/app/inventory/categories")
+        router.push("/app/inventory/units")
       } catch (error) {
         toast({
           title: "Something wend wrong",
@@ -75,7 +74,7 @@ export function AddCategoryForm(): JSX.Element {
             <FormItem className="w-1/2">
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Add category name" {...field} />
+                <Input type="text" placeholder="Unit name" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -84,12 +83,12 @@ export function AddCategoryForm(): JSX.Element {
 
         <FormField
           control={form.control}
-          name="description"
+          name="abbreviation"
           render={({ field }) => (
             <FormItem className="w-1/2">
-              <FormLabel>Description</FormLabel>
-              <FormControl className="min-h-[120px]">
-                <Textarea placeholder="Add category description" {...field} />
+              <FormLabel>Abbreviation</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Unit abbreviation" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -97,11 +96,7 @@ export function AddCategoryForm(): JSX.Element {
         />
 
         <div className=" flex items-center gap-2 pt-2">
-          <Button
-            disabled={isPending}
-            aria-label="Add Category"
-            className="w-fit"
-          >
+          <Button disabled={isPending} aria-label="Add Unit" className="w-fit">
             {isPending ? (
               <>
                 <Icons.spinner
@@ -111,13 +106,13 @@ export function AddCategoryForm(): JSX.Element {
                 <span>Adding...</span>
               </>
             ) : (
-              <span>Add Category</span>
+              <span>Add Unit</span>
             )}
-            <span className="sr-only">Add Category</span>
+            <span className="sr-only">Add Unit</span>
           </Button>
 
           <Link
-            href="/app/inventory/categories"
+            href="/app/inventory/units"
             className={cn(buttonVariants({ variant: "ghost" }), "w-fit")}
           >
             Cancel

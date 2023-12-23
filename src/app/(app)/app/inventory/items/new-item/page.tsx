@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { AddItemForm } from "@/components/forms/inventory/add-item-form"
-import { SubSubHeader } from "@/components/inventory/subheaders/subsubheader"
+import { AddItemForm } from "@/components/forms/inventory/items/add-item-form"
+import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export default function AppInventoryItemsNewItemPage(): JSX.Element {
   return (

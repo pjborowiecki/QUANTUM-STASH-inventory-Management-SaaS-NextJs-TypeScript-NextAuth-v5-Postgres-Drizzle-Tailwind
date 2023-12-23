@@ -3,8 +3,8 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewUnit } from "@/actions/inventory/units"
-import { addUnitSchema } from "@/validations/inventory"
+import { addNewCategory } from "@/actions/inventory/categories"
+import { addCategorySchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -21,36 +21,37 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type AddUnitFormInputs = z.infer<typeof addUnitSchema>
+type AddCategoryFormInputs = z.infer<typeof addCategorySchema>
 
-export function AddUnitForm(): JSX.Element {
+export function AddCategoryForm(): JSX.Element {
   const { toast } = useToast()
   const router = useRouter()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<AddUnitFormInputs>({
-    resolver: zodResolver(addUnitSchema),
+  const form = useForm<AddCategoryFormInputs>({
+    resolver: zodResolver(addCategorySchema),
     defaultValues: {
       name: "",
-      abbreviation: "",
+      description: "",
     },
   })
 
-  function onSubmit(formData: AddUnitFormInputs) {
+  function onSubmit(formData: AddCategoryFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewUnit({
+        const response = await addNewCategory({
           name: formData.name,
-          abbreviation: formData.abbreviation,
+          description: formData.description,
         })
 
         if (response === "success") {
-          toast({ title: "Success!", description: "New unit added" })
+          toast({ title: "Success!", description: "New category added" })
         }
 
-        router.push("/app/inventory/units")
+        router.push("/app/inventory/categories")
       } catch (error) {
         toast({
           title: "Something wend wrong",
@@ -74,7 +75,7 @@ export function AddUnitForm(): JSX.Element {
             <FormItem className="w-1/2">
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Add unit name" {...field} />
+                <Input type="text" placeholder="Category name" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -83,16 +84,12 @@ export function AddUnitForm(): JSX.Element {
 
         <FormField
           control={form.control}
-          name="abbreviation"
+          name="description"
           render={({ field }) => (
             <FormItem className="w-1/2">
-              <FormLabel>Abbreviation</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Add unit abbreviation"
-                  {...field}
-                />
+              <FormLabel>Description</FormLabel>
+              <FormControl className="min-h-[120px]">
+                <Textarea placeholder="Category description" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -100,7 +97,11 @@ export function AddUnitForm(): JSX.Element {
         />
 
         <div className=" flex items-center gap-2 pt-2">
-          <Button disabled={isPending} aria-label="Add Unit" className="w-fit">
+          <Button
+            disabled={isPending}
+            aria-label="Add Category"
+            className="w-fit"
+          >
             {isPending ? (
               <>
                 <Icons.spinner
@@ -110,9 +111,9 @@ export function AddUnitForm(): JSX.Element {
                 <span>Adding...</span>
               </>
             ) : (
-              <span>Add Unit</span>
+              <span>Add Category</span>
             )}
-            <span className="sr-only">Add Unit</span>
+            <span className="sr-only">Add Category</span>
           </Button>
 
           <Link
