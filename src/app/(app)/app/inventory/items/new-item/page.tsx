@@ -10,10 +10,11 @@ import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export default function AppInventoryItemsNewItemPage(): JSX.Element {
   return (
-    <div>
+    <div className="relative">
       <SubSubHeader />
+
       <div className="p-5">
-        <Card className="max-w-6xl rounded-md bg-tertiary">
+        <Card className="max-w-4xl rounded-md bg-tertiary">
           <CardHeader className="px-5 pt-5">
             <CardTitle className="text-2xl">New Inventory Item</CardTitle>
             <CardDescription className="text-base">

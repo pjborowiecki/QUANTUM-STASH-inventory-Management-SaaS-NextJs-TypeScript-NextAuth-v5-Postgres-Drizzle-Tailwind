@@ -10,7 +10,6 @@ import type { z } from "zod"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -28,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
 type AddItemFormInputs = z.infer<typeof addItemSchema>
@@ -39,11 +39,12 @@ export function AddItemForm(): JSX.Element {
   const form = useForm<AddItemFormInputs>({
     resolver: zodResolver(addItemSchema),
     defaultValues: {
-      type: "goods",
       name: "",
-      unit: "box",
+      description: "",
       sku: "",
-      returnable: false,
+      barcode: "",
+      supplier: "",
+      images: "",
     },
   })
 
@@ -64,16 +65,30 @@ export function AddItemForm(): JSX.Element {
   return (
     <Form {...form}>
       <form
-        className="grid w-full gap-5"
+        className="grid w-full gap-10"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-x-10 gap-y-5">
           <FormField
             control={form.control}
-            name="type"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type</FormLabel>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Product name" {...field} />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
                 <Select
                   value={field.value}
                   onValueChange={(value: typeof field.value) =>
@@ -82,17 +97,246 @@ export function AddItemForm(): JSX.Element {
                 >
                   <FormControl>
                     <SelectTrigger className="capitalize">
-                      <SelectValue placeholder={field.value} />
+                      <SelectValue />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     <SelectGroup>
-                      {Object.values(["goods", "services"]).map((option) => (
-                        <SelectItem
-                          key={option}
-                          value={option}
-                          className="capitalize"
-                        >
+                      {Object.values(["electronics", "clothes", "books"]).map(
+                        (option) => (
+                          <SelectItem
+                            key={option}
+                            value={option}
+                            className="capitalize"
+                          >
+                            {option}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="brand"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Brand</FormLabel>
+                <Select
+                  value={field.value}
+                  onValueChange={(value: typeof field.value) =>
+                    field.onChange(value)
+                  }
+                >
+                  <FormControl>
+                    <SelectTrigger className="capitalize">
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      {Object.values(["lenovo", "asus", "nike"]).map(
+                        (option) => (
+                          <SelectItem
+                            key={option}
+                            value={option}
+                            className="capitalize"
+                          >
+                            {option}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="barcode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Barcode</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Product barcode" {...field} />
+                </FormControl>
+                <FormMessage className="pt-2 sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="col-start-1 col-end-3">
+                <FormLabel>Description</FormLabel>
+
+                <FormControl>
+                  <Textarea
+                    placeholder="Description (optional)"
+                    className="min-h-[120px]"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="pt-2 sm:text-sm" />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+          <FormField
+            control={form.control}
+            name="sellingPrice"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Selling Price</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Single item selling price"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="purchasePrice"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Purchase Price</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Cost of acquiring the item"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="taxRate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tax Rate (%)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Tax rate"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+          <FormField
+            control={form.control}
+            name="width"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Width</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Product width"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="height"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Height</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Product height"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="depth"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Depth</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Product depth"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="dimensionsUnit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Dimensions Unit (width, height, depth)</FormLabel>
+                <Select
+                  value={field.value}
+                  onValueChange={(value: typeof field.value) =>
+                    field.onChange(value)
+                  }
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      {Object.values(["cm", "m", "in"]).map((option) => (
+                        <SelectItem key={option} value={option}>
                           {option}
                         </SelectItem>
                       ))}
@@ -106,18 +350,131 @@ export function AddItemForm(): JSX.Element {
 
           <FormField
             control={form.control}
-            name="name"
+            name="weight"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Weight</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Product weight"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="weightUnit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Weight Unit</FormLabel>
+                <Select
+                  value={field.value}
+                  onValueChange={(value: typeof field.value) =>
+                    field.onChange(value)
+                  }
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      {Object.values(["kg", "g", "lb"]).map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+          <FormField
+            control={form.control}
+            name="warehouse"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Warehouse (storage location)</FormLabel>
+                <Select
+                  value={field.value}
+                  onValueChange={(value: typeof field.value) =>
+                    field.onChange(value)
+                  }
+                >
+                  <FormControl>
+                    <SelectTrigger className="capitalize">
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      {Object.values(["main", "branch 1", "branch 2"]).map(
+                        (option) => (
+                          <SelectItem
+                            key={option}
+                            value={option}
+                            className="capitalize"
+                          >
+                            {option}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="sku"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>SKU</FormLabel>
+
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Add product name"
+                    placeholder="Stock Keeping Unit"
                     {...field}
                   />
                 </FormControl>
                 <FormMessage className="pt-2 sm:text-sm" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Quantity in stock"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage className="sm:text-sm" />
               </FormItem>
             )}
           />
@@ -141,21 +498,7 @@ export function AddItemForm(): JSX.Element {
                   </FormControl>
                   <SelectContent>
                     <SelectGroup>
-                      {Object.values([
-                        "box",
-                        "cm",
-                        "dz",
-                        "ft",
-                        "g",
-                        "in",
-                        "kg",
-                        "km",
-                        "lb",
-                        "mg",
-                        "ml",
-                        "m",
-                        "pcs",
-                      ]).map((option) => (
+                      {Object.values(["box", "piece"]).map((option) => (
                         <SelectItem key={option} value={option}>
                           {option}
                         </SelectItem>
@@ -170,78 +513,79 @@ export function AddItemForm(): JSX.Element {
 
           <FormField
             control={form.control}
-            name="sku"
+            name="reorderPoint"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Reorder Point</FormLabel>
                 <FormControl>
                   <Input
-                    type="text"
-                    placeholder="Add Stock Keeping Unit"
-                    {...field}
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Quantity at which to reorder"
+                    value={Number.isNaN(field.value) ? "" : field.value}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
                   />
                 </FormControl>
-                <FormMessage className="pt-2 sm:text-sm" />
+                <FormMessage className="sm:text-sm" />
               </FormItem>
             )}
           />
 
           <FormField
             control={form.control}
-            name="returnable"
+            name="supplier"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <FormItem>
+                <FormLabel>Supplier</FormLabel>
                 <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+                  <Input
+                    type="text"
+                    placeholder="Product supplier"
+                    {...field}
                   />
                 </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>Returnable Item</FormLabel>
-                </div>
+                <FormMessage className="sm:text-sm" />
               </FormItem>
             )}
           />
         </div>
 
-        <div className="grid grid-cols-2">
-          <p>dimensions</p>
-          <p>weight</p>
-          <p>manufacturer</p>
-          <p>brand</p>
-          <p>UPC</p>
-          <p>MPN</p>
-          <p>EAN</p>
-          <p>ISBN</p>
-        </div>
+        <FormField
+          control={form.control}
+          name="notes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Additional Notes</FormLabel>
 
-        <div className="grid grid-cols-2">
-          <div>
-            <p>SALES INFORMATION</p>
-            <p>Selling Price</p>
-            <p>Account</p>
-            <p>Description</p>
-            <p>Tax</p>
-          </div>
+              <FormControl>
+                <Textarea
+                  placeholder="Additional notes"
+                  className="min-h-[120px]"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="pt-2 sm:text-sm" />
+            </FormItem>
+          )}
+        />
 
-          <div>
-            <p>PURCHASE INFORMATION</p>
-            <p>Coust Price</p>
-            <p>Account</p>
-            <p>Description</p>
-            <p>Tax</p>
-            <p>Preferred Vendor</p>
-          </div>
-        </div>
-
-        <div>
-          <p>TRACK INVENTORY FOR THIS ITEM</p>
-          <p>Inventory Account</p>
-          <p>Opening Stock</p>
-          <p>Opening Stork Rate Per Unit</p>
-          <p>Reorder point</p>
-        </div>
+        <FormField
+          control={form.control}
+          name="images"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Images</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="Product images upload"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="sm:text-sm" />
+            </FormItem>
+          )}
+        />
 
         <div className=" flex items-center gap-2 pt-2">
           <Button disabled={isPending} aria-label="Add Item" className="w-fit">
