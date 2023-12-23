@@ -41,5 +41,18 @@ You can check the deployed demo version [TODO: here]()
 
 ## ToDo
 
-- [ ] Collapse any open collapsibles in the sidebar nav when collapsing the sidebar itself
-- [ ]
+- [ ] Collapse any open collapsibles in the sidebar nav when collapsing the sidebar itself (use global state management)
+- [ ] Improve responsiveness
+- [ ] Fix the QuickCreate menu
+- [ ] Fix the gaps in Settings
+
+- [ ] Implement authentication and authorization
+- [ ] Set up database connection and ORM
+- [ ] Define data schemas
+- [ ] Implement missing forms
+- [ ] Implement User, Organizations, Notifications, and Quick Help menu pages
+- [ ] Implement Other Apps menu
+- [ ] Connect Stripe and define plans
+- [ ] Make SaaS subscriptions functional
+- [ ] Make the dashboard use dynamic data
+- [ ] Set up and implement email notifications
