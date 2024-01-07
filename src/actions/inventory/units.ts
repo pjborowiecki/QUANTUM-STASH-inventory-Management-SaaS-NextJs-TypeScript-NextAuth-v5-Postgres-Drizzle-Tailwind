@@ -3,7 +3,7 @@
 import type { unitSchema } from "@/validations/inventory"
 import type { z } from "zod"
 
-export async function addNewUnit(input: z.infer<typeof unitSchema>) {
+export async function addUnit(input: z.infer<typeof unitSchema>) {
   console.log(input.name, input.abbreviation)
   console.log("Adding unit to the database...")
   return new Promise((resolve) => {

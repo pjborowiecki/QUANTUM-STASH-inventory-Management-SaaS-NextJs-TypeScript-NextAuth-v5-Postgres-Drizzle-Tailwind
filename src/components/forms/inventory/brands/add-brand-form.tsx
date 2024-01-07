@@ -3,7 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewBrand } from "@/actions/inventory/brands"
+import { addBrand } from "@/actions/inventory/brands"
 import { brandSchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -40,7 +40,7 @@ export function AddBrandForm(): JSX.Element {
   function onSubmit(formData: AddBrandFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewBrand(formData)
+        const response = await addBrand(formData)
 
         if (response === "success") {
           toast({ title: "Success!", description: "New category added" })

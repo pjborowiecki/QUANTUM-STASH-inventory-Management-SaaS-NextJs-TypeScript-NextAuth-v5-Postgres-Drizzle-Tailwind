@@ -3,8 +3,8 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewWarehouse } from "@/actions/warehouses"
-import { addWarehouseSchema } from "@/validations/warehouses"
+import { addWarehouse } from "@/actions/warehouses"
+import { warehouseSchema } from "@/validations/warehouses"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -32,7 +32,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type AddWarehouseFormInputs = z.infer<typeof addWarehouseSchema>
+type AddWarehouseFormInputs = z.infer<typeof warehouseSchema>
 
 export function AddWarehouseForm(): JSX.Element {
   const { toast } = useToast()
@@ -40,7 +40,7 @@ export function AddWarehouseForm(): JSX.Element {
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<AddWarehouseFormInputs>({
-    resolver: zodResolver(addWarehouseSchema),
+    resolver: zodResolver(warehouseSchema),
     defaultValues: {
       name: "",
       type: "branch",
@@ -52,7 +52,7 @@ export function AddWarehouseForm(): JSX.Element {
   function onSubmit(formData: AddWarehouseFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewWarehouse(formData)
+        const response = await addWarehouse(formData)
 
         if (response === "success") {
           toast({ title: "Success!", description: "New category added" })

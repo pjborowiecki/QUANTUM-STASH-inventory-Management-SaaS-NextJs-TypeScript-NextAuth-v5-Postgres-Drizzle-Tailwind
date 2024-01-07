@@ -3,8 +3,8 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewCategory } from "@/actions/inventory/categories"
-import { addCategorySchema } from "@/validations/inventory"
+import { addCategory } from "@/actions/inventory/categories"
+import { categorySchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type AddCategoryFormInputs = z.infer<typeof addCategorySchema>
+type AddCategoryFormInputs = z.infer<typeof categorySchema>
 
 export function AddCategoryForm(): JSX.Element {
   const { toast } = useToast()
@@ -32,7 +32,7 @@ export function AddCategoryForm(): JSX.Element {
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<AddCategoryFormInputs>({
-    resolver: zodResolver(addCategorySchema),
+    resolver: zodResolver(categorySchema),
     defaultValues: {
       name: "",
       description: "",
@@ -42,7 +42,7 @@ export function AddCategoryForm(): JSX.Element {
   function onSubmit(formData: AddCategoryFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewCategory({
+        const response = await addCategory({
           name: formData.name,
           description: formData.description,
         })

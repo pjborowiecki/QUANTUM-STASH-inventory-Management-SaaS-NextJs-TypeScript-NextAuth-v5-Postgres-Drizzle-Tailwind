@@ -3,7 +3,7 @@
 import { type brandSchema } from "@/validations/inventory"
 import type { z } from "zod"
 
-export async function addNewBrand(input: z.infer<typeof brandSchema>) {
+export async function addBrand(input: z.infer<typeof brandSchema>) {
   console.log(input.name)
   console.log("Adding brand to the database...")
   return new Promise((resolve) => {

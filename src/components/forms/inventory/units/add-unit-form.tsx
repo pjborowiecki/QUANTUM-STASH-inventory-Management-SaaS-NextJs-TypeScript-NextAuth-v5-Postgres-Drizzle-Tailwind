@@ -3,8 +3,8 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addNewUnit } from "@/actions/inventory/units"
-import { addUnitSchema } from "@/validations/inventory"
+import { addUnit } from "@/actions/inventory/units"
+import { unitSchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type AddUnitFormInputs = z.infer<typeof addUnitSchema>
+type AddUnitFormInputs = z.infer<typeof unitSchema>
 
 export function AddUnitForm(): JSX.Element {
   const { toast } = useToast()
@@ -31,7 +31,7 @@ export function AddUnitForm(): JSX.Element {
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<AddUnitFormInputs>({
-    resolver: zodResolver(addUnitSchema),
+    resolver: zodResolver(unitSchema),
     defaultValues: {
       name: "",
       abbreviation: "",
@@ -41,7 +41,7 @@ export function AddUnitForm(): JSX.Element {
   function onSubmit(formData: AddUnitFormInputs) {
     startTransition(async () => {
       try {
-        const response = await addNewUnit({
+        const response = await addUnit({
           name: formData.name,
           abbreviation: formData.abbreviation,
         })

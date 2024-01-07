@@ -55,3 +55,9 @@ export interface SettingsOption {
 export type FileWithPreview = FileWithPath & {
   preview: string
 }
+
+export interface StoredFile {
+  id: string
+  name: string
+  url: string
+}
