@@ -1,9 +1,15 @@
 "use server"
 
-import { type addCategorySchema } from "@/validations/inventory"
+import type { categorySchema } from "@/validations/inventory"
 import type { z } from "zod"
 
-export async function addNewCategory(input: z.infer<typeof addCategorySchema>) {
+export async function addCategory(input: z.infer<typeof categorySchema>) {
   console.log(input.name, input.description)
-  return "success"
+  console.log("Adding new category to the database")
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Category added to the database")
+      resolve("success")
+    }, 1000)
+  })
 }

@@ -1,9 +1,15 @@
 "use server"
 
-import { type addUnitSchema } from "@/validations/inventory"
+import type { unitSchema } from "@/validations/inventory"
 import type { z } from "zod"
 
-export async function addNewUnit(input: z.infer<typeof addUnitSchema>) {
+export async function addNewUnit(input: z.infer<typeof unitSchema>) {
   console.log(input.name, input.abbreviation)
-  return "success"
+  console.log("Adding unit to the database...")
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Unit added to the database")
+      resolve("success")
+    }, 1000)
+  })
 }

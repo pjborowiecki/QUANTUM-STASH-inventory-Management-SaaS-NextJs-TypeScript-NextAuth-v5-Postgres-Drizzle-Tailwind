@@ -1,9 +1,15 @@
 "use server"
 
-import { type addBrandSchema } from "@/validations/inventory"
+import { type brandSchema } from "@/validations/inventory"
 import type { z } from "zod"
 
-export async function addNewBrand(input: z.infer<typeof addBrandSchema>) {
+export async function addNewBrand(input: z.infer<typeof brandSchema>) {
   console.log(input.name)
-  return "success"
+  console.log("Adding brand to the database...")
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Brand added to the database")
+      resolve("success")
+    }, 1000)
+  })
 }

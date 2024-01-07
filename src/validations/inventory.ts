@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-export const addCategorySchema = z.object({
+export const categorySchema = z.object({
   name: z.string(),
   description: z.string(),
 })
@@ -115,11 +115,11 @@ export const extendedItemSchema = itemSchema.extend({
     .nullable(),
 })
 
-export const addUnitSchema = z.object({
+export const unitSchema = z.object({
   name: z.string(),
   abbreviation: z.string(),
 })
 
-export const addBrandSchema = z.object({
+export const brandSchema = z.object({
   name: z.string(),
 })

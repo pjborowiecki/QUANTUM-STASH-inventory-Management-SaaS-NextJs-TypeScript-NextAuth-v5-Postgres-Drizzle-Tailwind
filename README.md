@@ -1,15 +1,5 @@
 # Quantum Stash
 
-Quantum Stash is a modern inventory management system, designed for the future of efficient business operations. Harness the power of advanced technology to streamline your inventory processes with precision and speed. Quantum Stash offers a seamless and intuitive experience, ensuring that your organization stays ahead in the dynamic landscape of inventory control. From cutting-edge analytics to real-time updates, Quantum Stash empowers your business to manage stock with unprecedented efficiency. Elevate your inventory management to a new dimension with Quantum Stash.
-
-![public/images/screenshots/screenshot_1](./public/images/screenshots/screenshot_1.png)
-
-![public/images/screenshots/screenshot_2](./public/images/screenshots/screenshot_2.png)
-
-<br />
-
-## Project Description
-
 **WORK IN PROGRESS**
 
 Quantum Stash is an open-source Software as a Service (SaaS) web application designed for efficient inventory management.
@@ -19,6 +9,12 @@ Tailored for e-commerce companies, it is versatile enough to meet the needs of a
 The project serves as my portfolio demo piece, showcasing my proficiency in developing full-stack applications involving advanced features.
 
 You can check the deployed demo version [TODO: here]()
+
+<br />
+
+![public/images/screenshots/screenshot_1](./public/images/screenshots/screenshot_1.png)
+
+![public/images/screenshots/screenshot_2](./public/images/screenshots/screenshot_2.png)
 
 <br />
 
