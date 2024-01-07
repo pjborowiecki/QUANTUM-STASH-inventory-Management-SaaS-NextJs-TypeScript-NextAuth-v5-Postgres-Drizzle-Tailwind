@@ -1,3 +1,5 @@
+import { type FileWithPath } from "react-dropzone"
+
 import { type dashboardCardSelectOptions } from "@/data/constants/dashboard"
 
 export interface NavItem {
@@ -48,4 +50,8 @@ export interface SettingsOption {
   title: string
   icon: string
   items: SettingsOptionItem[]
+}
+
+export type FileWithPreview = FileWithPath & {
+  preview: string
 }

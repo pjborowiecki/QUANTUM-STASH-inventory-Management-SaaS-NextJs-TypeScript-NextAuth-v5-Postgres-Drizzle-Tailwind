@@ -5,69 +5,36 @@ export const addCategorySchema = z.object({
   description: z.string(),
 })
 
-export const addItemSchema = z.object({
-  category: z.string(),
+export const itemSchema = z.object({
   name: z.string(),
-  description: z.string(),
+  category: z.string(),
   brand: z.string(),
-  sku: z.string(),
   barcode: z.string(),
-  unit: z.string(),
-  quantity: z
-    .number({
-      required_error: "Quantity is required",
-      invalid_type_error: "Quantity must be a number",
-    })
-    .positive({ message: "Quantity must greater than 0" })
-    .min(1, {
-      message: "Quantity must greater than 0",
-    }),
+  description: z.string(),
   sellingPrice: z
-    .number({
+    .string({
       required_error: "Selling Price is required",
-      invalid_type_error: "Selling Price must be a number",
+      invalid_type_error: "Selling Price must be a string",
     })
-    .positive({ message: "Selling Price must greater than 0" })
-    .min(1, {
-      message: "Selling Price must greater than 0",
+    .regex(/^\d+(\.\d{1,2})?$/, {
+      message: "Invalid format",
     }),
   purchasePrice: z
-    .number({
+    .string({
       required_error: "Purchase Price is required",
-      invalid_type_error: "Purchase Price must be a number",
+      invalid_type_error: "Purchase Price must be a string",
     })
-    .positive({ message: "Purchase Price must greater than 0" })
-    .min(1, {
-      message: "Purchase Price must greater than 0",
+    .regex(/^\d+(\.\d{1,2})?$/, {
+      message: "Invalid format",
     }),
-  supplier: z.string(),
-  reorderPoint: z
+  taxRate: z
     .number({
-      required_error: "Reorder Point is required",
-      invalid_type_error: "Reorder Point must be a number",
+      required_error: "Tax Reate is required",
+      invalid_type_error: "Tax Rate must be a number",
     })
-    .positive({ message: "Reorder Point must greater than 0" })
+    .positive({ message: "Tax Rate must greater than 0" })
     .min(1, {
-      message: "Reorder Point must greater than 0",
-    }),
-  warehouse: z.string(),
-  weight: z
-    .number({
-      required_error: "Weigth is required",
-      invalid_type_error: "Weight must be a number",
-    })
-    .positive({ message: "Weight must greater than 0" })
-    .min(1, {
-      message: "Weight must greater than 0",
-    }),
-  height: z
-    .number({
-      required_error: "Height is required",
-      invalid_type_error: "Height must be a number",
-    })
-    .positive({ message: "Height must greater than 0" })
-    .min(1, {
-      message: "Height must greater than 0",
+      message: "Tax Rate must greater than 0",
     }),
   width: z
     .number({
@@ -77,6 +44,15 @@ export const addItemSchema = z.object({
     .positive({ message: "Width must greater than 0" })
     .min(1, {
       message: "Width must greater than 0",
+    }),
+  height: z
+    .number({
+      required_error: "Height is required",
+      invalid_type_error: "Height must be a number",
+    })
+    .positive({ message: "Height must greater than 0" })
+    .min(1, {
+      message: "Height must greater than 0",
     }),
   depth: z
     .number({
@@ -88,18 +64,55 @@ export const addItemSchema = z.object({
       message: "Depth must greater than 0",
     }),
   dimensionsUnit: z.string(),
-  weightUnit: z.string(),
-  taxRate: z
+  weight: z
     .number({
-      required_error: "Tax Reate is required",
-      invalid_type_error: "Tax Rate must be a number",
+      required_error: "Weigth is required",
+      invalid_type_error: "Weight must be a number",
     })
-    .positive({ message: "Tax Rate must greater than 0" })
+    .positive({ message: "Weight must greater than 0" })
     .min(1, {
-      message: "Tax Rate must greater than 0",
+      message: "Weight must greater than 0",
     }),
+  weightUnit: z.string(),
+  warehouse: z.string(),
+  sku: z.string(),
+  quantity: z
+    .number({
+      required_error: "Quantity is required",
+      invalid_type_error: "Quantity must be a number",
+    })
+    .positive({ message: "Quantity must greater than 0" })
+    .min(1, {
+      message: "Quantity must greater than 0",
+    }),
+  unit: z.string(),
+  reorderPoint: z
+    .number({
+      required_error: "Reorder Point is required",
+      invalid_type_error: "Reorder Point must be a number",
+    })
+    .positive({ message: "Reorder Point must greater than 0" })
+    .min(1, {
+      message: "Reorder Point must greater than 0",
+    }),
+  supplier: z.string(),
   notes: z.string(),
-  images: z.string(),
+  images: z
+    .unknown()
+    .refine((val) => {
+      if (!Array.isArray(val)) return false
+      if (val.some((file) => !(file instanceof File))) return false
+      return true
+    }, "Images must be an array of Files")
+    .optional()
+    .nullable()
+    .default(null),
+})
+
+export const extendedItemSchema = itemSchema.extend({
+  images: z
+    .array(z.object({ id: z.string(), name: z.string(), url: z.string() }))
+    .nullable(),
 })
 
 export const addUnitSchema = z.object({

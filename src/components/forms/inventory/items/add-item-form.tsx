@@ -1,14 +1,18 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { addItemSchema } from "@/validations/inventory"
+import { addItem, checkItem } from "@/actions/inventory/items"
+import { type FileWithPreview } from "@/types"
+import { itemSchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { generateReactHelpers } from "@uploadthing/react/hooks"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
 import { useToast } from "@/hooks/use-toast"
-import { cn } from "@/lib/utils"
+import { cn, isArrayOfFiles } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
@@ -17,6 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  UncontrolledFormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import {
@@ -28,30 +33,78 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { FileDialog } from "@/components/file-dialog"
 import { Icons } from "@/components/icons"
+import { Zoom } from "@/components/image-zoom"
+import type { UploadFilesRouter } from "@/app/api/uploadthing/core"
 
-type AddItemFormInputs = z.infer<typeof addItemSchema>
+type AddItemFormInputs = z.infer<typeof itemSchema>
+
+const { useUploadThing } = generateReactHelpers<UploadFilesRouter>()
 
 export function AddItemForm(): JSX.Element {
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
+  const [files, setFiles] = React.useState<FileWithPreview[] | null>(null)
+  const { isUploading, startUpload } = useUploadThing("productImage")
 
   const form = useForm<AddItemFormInputs>({
-    resolver: zodResolver(addItemSchema),
+    resolver: zodResolver(itemSchema),
     defaultValues: {
       name: "",
       description: "",
       sku: "",
       barcode: "",
       supplier: "",
-      images: "",
+      images: [],
     },
   })
 
   function onSubmit(formData: AddItemFormInputs) {
-    startTransition(() => {
+    startTransition(async () => {
       try {
-        console.log(formData)
+        await checkItem({ name: formData.name })
+
+        if (isArrayOfFiles(formData.images)) {
+          toast({
+            title: "Uploading images...",
+            description: "Please wait while we upload your images.",
+          })
+
+          try {
+            const res = await startUpload(formData.images)
+            const formattedImages =
+              res?.map((image) => ({
+                id: image.key,
+                name: image.key.split("_")[1] ?? image.key,
+                url: image.url,
+              })) ?? null
+
+            await addItem({ ...formData, images: formattedImages })
+
+            toast({
+              title: "Product added successfully",
+            })
+          } catch (error) {
+            toast({
+              title: "Error uploading images",
+              description: "There was an error while uploading images",
+              variant: "destructive",
+            })
+          }
+        } else {
+          await addItem({
+            ...formData,
+            images: null,
+          })
+
+          toast({
+            title: "Product added successfully",
+          })
+        }
+
+        form.reset()
+        setFiles(null)
       } catch (error) {
         toast({
           title: "Something went wrong",
@@ -559,7 +612,7 @@ export function AddItemForm(): JSX.Element {
 
               <FormControl>
                 <Textarea
-                  placeholder="Additional notes"
+                  placeholder="Additional notes (optional)"
                   className="min-h-[120px]"
                   {...field}
                 />
@@ -569,23 +622,39 @@ export function AddItemForm(): JSX.Element {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="images"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Images</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Product images upload"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="sm:text-sm" />
-            </FormItem>
-          )}
-        />
+        <FormItem className="flex w-full flex-col gap-1.5">
+          <FormLabel>Images</FormLabel>
+          {files?.length ? (
+            <div className="flex items-center gap-2">
+              {files.map((file, i) => (
+                <Zoom key={i}>
+                  <Image
+                    src={file.preview}
+                    alt={file.name}
+                    className="h-20 w-20 shrink-0 rounded-md object-cover object-center"
+                    width={80}
+                    height={80}
+                  />
+                </Zoom>
+              ))}
+            </div>
+          ) : null}
+          <FormControl>
+            <FileDialog
+              setValue={form.setValue}
+              name="images"
+              maxFiles={5}
+              maxSize={1024 * 1024 * 4}
+              files={files}
+              setFiles={setFiles}
+              isUploading={isUploading}
+              disabled={isPending}
+            />
+          </FormControl>
+          <UncontrolledFormMessage
+            message={form.formState.errors.images?.message}
+          />
+        </FormItem>
 
         <div className=" flex items-center gap-2 pt-2">
           <Button disabled={isPending} aria-label="Add Item" className="w-fit">
