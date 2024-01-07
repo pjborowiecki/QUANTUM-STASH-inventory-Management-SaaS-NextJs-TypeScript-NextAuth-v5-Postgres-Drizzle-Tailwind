@@ -3,9 +3,7 @@ import("./src/env.mjs")
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    webpackBuildWorker: true,
-  },
+  pageExtensions: ["tsx", "mdx", "ts", "js"],
   images: {
     remotePatterns: [
       {
@@ -16,7 +14,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "uploadthing.com",
+      },
     ],
+    unoptimized: true,
   },
 }
 

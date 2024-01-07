@@ -4,7 +4,7 @@ import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { addNewBrand } from "@/actions/inventory/brands"
-import { addBrandSchema } from "@/validations/inventory"
+import { brandSchema } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type AddBrandFormInputs = z.infer<typeof addBrandSchema>
+type AddBrandFormInputs = z.infer<typeof brandSchema>
 
 export function AddBrandForm(): JSX.Element {
   const { toast } = useToast()
@@ -31,7 +31,7 @@ export function AddBrandForm(): JSX.Element {
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<AddBrandFormInputs>({
-    resolver: zodResolver(addBrandSchema),
+    resolver: zodResolver(brandSchema),
     defaultValues: {
       name: "",
     },
