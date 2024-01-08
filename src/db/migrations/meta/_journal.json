@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1704658376355,
-      "tag": "0000_last_kang",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1704659926968,
-      "tag": "0001_friendly_silver_samurai",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1704662521906,
-      "tag": "0002_spooky_thor",
+      "when": 1704672332928,
+      "tag": "0000_sloppy_mentor",
       "breakpoints": true
     }
   ]

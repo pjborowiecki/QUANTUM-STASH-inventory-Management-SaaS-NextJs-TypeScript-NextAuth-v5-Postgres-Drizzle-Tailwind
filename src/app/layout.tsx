@@ -6,6 +6,7 @@ import { env } from "@/env.mjs"
 
 import { fontInter } from "@/config/fonts"
 import { siteConfig } from "@/config/site"
+import { AuthProvider } from "@/providers/auth-provider"
 import { ThemeProvider } from "@/providers/theme-provider"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
@@ -79,7 +80,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>{children}</AuthProvider>
+
           <Toaster />
           <TailwindIndicator />
           {/* <ThemeToggle /> */}

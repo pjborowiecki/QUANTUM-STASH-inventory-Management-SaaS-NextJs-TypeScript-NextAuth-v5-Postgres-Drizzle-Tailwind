@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -23,4 +24,8 @@ export function isArrayOfFiles(files: unknown): files is File[] {
   const isArray = Array.isArray(files)
   if (!isArray) return false
   return files.every((file) => file instanceof File)
+}
+
+export function absoluteUrl(path: string) {
+  return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }

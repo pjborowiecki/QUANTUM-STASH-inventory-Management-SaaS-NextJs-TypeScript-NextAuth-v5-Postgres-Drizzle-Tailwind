@@ -1,16 +1,102 @@
-import { type StoredFile } from "@/types"
+import type { StoredFile } from "@/types"
+import type { AdapterAccount } from "@auth/core/adapters"
+import { relations } from "drizzle-orm"
 import {
   decimal,
   integer,
   json,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core"
 
-export const warehouses = pgTable("warehouses", {
+export const accounts = pgTable(
+  "account",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<AdapterAccount["type"]>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (account) => ({
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
+  })
+)
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}))
+
+export const sessions = pgTable("session", {
+  sessionToken: text("sessionToken").notNull().primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+})
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}))
+
+export const users = pgTable("user", {
+  id: text("id").notNull().primaryKey(),
+  name: text("name"),
+  surname: text("surname"),
+  username: text("username").unique(),
+  email: text("email").unique().notNull(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  emailVerificationToken: text("emailVerificationToken").unique(),
+  passwordHash: text("passwordHash"),
+  resetPasswordToken: text("resetPasswordToken").unique(),
+  resetPasswordTokenExpiry: timestamp("resetPasswordTokenExpiry", {
+    mode: "date",
+  }),
+  image: text("image"),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
+})
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  account: one(accounts, {
+    fields: [users.id],
+    references: [accounts.userId],
+  }),
+  session: many(sessions),
+}))
+
+export const verificationTokens = pgTable(
+  "verificationToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (vt) => ({
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
+  })
+)
+
+export const warehouses = pgTable("warehouse", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 32 }).notNull(),
   type: varchar("type", { length: 32 }).notNull(),
@@ -18,18 +104,18 @@ export const warehouses = pgTable("warehouses", {
   location: varchar("location", { length: 32 }).notNull(),
 })
 
-export const categories = pgTable("categories", {
+export const categories = pgTable("category", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 32 }).unique().notNull(),
   description: text("description"),
 })
 
-export const brands = pgTable("brands", {
+export const brands = pgTable("brand", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 32 }).unique().notNull(),
 })
 
-export const items = pgTable("items", {
+export const items = pgTable("item", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
   // TODO: Link to category id, define relations
@@ -70,11 +156,23 @@ export const items = pgTable("items", {
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 })
 
-export const units = pgTable("units", {
+export const units = pgTable("unit", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 24 }).unique().notNull(),
   abbreviation: varchar("abbreviation", { length: 8 }).notNull().unique(),
 })
+
+export type User = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
+
+export type Account = typeof accounts.$inferSelect
+export type NewAccount = typeof accounts.$inferInsert
+
+export type Session = typeof sessions.$inferSelect
+export type NewSession = typeof sessions.$inferInsert
+
+export type VerificationToken = typeof verificationTokens.$inferSelect
+export type NewVerificationToken = typeof verificationTokens.$inferInsert
 
 export type Warehouse = typeof warehouses.$inferSelect
 export type NewWarehouse = typeof warehouses.$inferInsert

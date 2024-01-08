@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pjborowiecki/"
+    "url": "https://github.com/pjborowiecki/QUANTUM-STASH-inventory-Management-SaaS-NextJs-TypeScript-Postgres-Drizzle-Tailwind.git"
   },
   "bugs": {
-    "url": "https://github.com/pjborowiecki/"
+    "url": "https://github.com/pjborowiecki/QUANTUM-STASH-inventory-Management-SaaS-NextJs-TypeScript-Postgres-Drizzle-Tailwind.git/issues"
   },
   "type": "module",
   "scripts": {
@@ -37,6 +37,8 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@auth/core": "^0.20.0",
+    "@auth/drizzle-adapter": "^0.3.14",
     "@hookform/resolvers": "^3.3.4",
     "@neondatabase/serverless": "^0.6.1",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -56,14 +58,29 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@react-email/body": "^0.0.7",
+    "@react-email/button": "^0.0.13",
+    "@react-email/container": "^0.0.11",
+    "@react-email/head": "^0.0.7",
+    "@react-email/heading": "^0.0.11",
+    "@react-email/hr": "^0.0.7",
+    "@react-email/html": "^0.0.7",
+    "@react-email/img": "^0.0.7",
+    "@react-email/link": "^0.0.7",
+    "@react-email/preview": "^0.0.8",
+    "@react-email/section": "^0.0.11",
+    "@react-email/tailwind": "^0.0.13",
+    "@react-email/text": "^0.0.7",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@uploadthing/react": "^6.1.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.3",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-cropper": "^2.3.3",
@@ -82,7 +99,9 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/bcrypt": "^5.0.2",
     "@types/eslint": "^8.56.1",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.10.7",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
@@ -101,6 +120,6 @@
     "typescript": "^5.3.3"
   },
   "engine": {
-    "node": ">=18.0.0"
+    "node": ">=20.10.0"
   }
 }
