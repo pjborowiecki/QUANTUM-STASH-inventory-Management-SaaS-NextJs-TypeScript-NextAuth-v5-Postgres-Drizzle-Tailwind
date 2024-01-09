@@ -2,12 +2,16 @@
 
 import * as React from "react"
 import { useSearchParams } from "next/navigation"
-import { signInWithEmailSchema } from "@/validations/auth"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
+import { signInWithEmail } from "@/actions/auth"
+import {
+  signInWithEmailSchema,
+  type SignInWithEmailFormInput,
+} from "@/validations/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
+import { DEFAULT_SIGNIN_REDIRECT } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,33 +25,59 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type SignInWithEmailFormInputs = z.infer<typeof signInWithEmailSchema>
-
 export function SignInWithEmailForm(): JSX.Element {
   const searchParams = useSearchParams()
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<SignInWithEmailFormInputs>({
+  const form = useForm<SignInWithEmailFormInput>({
     resolver: zodResolver(signInWithEmailSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  function onSubmit(formData: SignInWithEmailFormInputs): void {
+  function onSubmit(formData: SignInWithEmailFormInput): void {
     startTransition(async () => {
       try {
         await signIn("email", {
           email: formData.email,
-          callbackUrl: searchParams.get("callbackUrl") || "/",
+          callbackUrl: DEFAULT_SIGNIN_REDIRECT,
         })
+        // const message = await signInWithEmail({ email: formData.email })
+        // switch (message) {
+        //   case "invalid-input":
+        //     toast({
+        //       title: "Invalid Email Address",
+        //       description: "Please check your email and try again",
+        //       variant: "destructive",
+        //     })
+        //     break
+        //   case "success":
+        //     toast({
+        //       title: "Success!",
+        //       description: "You are now signed in",
+        //     })
+        //     break
+        //   default:
+        //     toast({
+        //       title: "Error signing in with email",
+        //       description: "Please try again",
+        //       variant: "destructive",
+        //     })
+        // }
       } catch (error) {
-        toast({
-          title: "Something went wrong",
-          description: "Please try again",
-          variant: "destructive",
-        })
+        searchParams.get("error") === "OAuthAccountNotLinked"
+          ? toast({
+              title: "Email already in use with another provider",
+              description: "Perhaps you sign up with another method?",
+              variant: "destructive",
+            })
+          : toast({
+              title: "Something went wrong",
+              description: "Please try again",
+              variant: "destructive",
+            })
         console.error(error)
       }
     })

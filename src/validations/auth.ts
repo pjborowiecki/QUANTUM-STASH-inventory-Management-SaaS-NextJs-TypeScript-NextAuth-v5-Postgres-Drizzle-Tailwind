@@ -36,7 +36,10 @@ export const signInWithEmailSchema = z.object({
 
 export const signInWithPasswordSchema = z.object({
   email: emailSchema,
-  password: passwordSchema,
+  password: z.string({
+    required_error: "Password is required",
+    invalid_type_error: "Password must be a string",
+  }),
 })
 
 export const passwordResetSchema = z.object({
@@ -62,3 +65,19 @@ export const passwordUpdateSchema = z
 export const emailVerificationSchema = z.object({
   email: emailSchema,
 })
+
+export type SignUpWithPasswordFormInput = z.infer<
+  typeof signUpWithPasswordSchema
+>
+
+export type SignInWithPasswordFormInput = z.infer<
+  typeof signInWithPasswordSchema
+>
+
+export type SignInWithEmailFormInput = z.infer<typeof signInWithEmailSchema>
+
+export type PasswordResetFormInput = z.infer<typeof passwordResetSchema>
+
+export type PasswordUpdateFormInput = z.infer<typeof passwordUpdateSchema>
+
+export type EmailVerificationFormInput = z.infer<typeof emailVerificationSchema>

@@ -1,21 +1,21 @@
+import { auth } from "@/auth"
+
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { SignOutButton } from "@/components/auth/signout-button"
 import { Icons } from "@/components/icons"
 
-export function UserMenu(): JSX.Element {
-  const user = {
-    email: "user@test.com",
-    image: null,
-  }
-
+export async function UserMenu(): Promise<JSX.Element> {
+  const session = await auth()
   return (
     <Sheet>
       <SheetTrigger
@@ -25,8 +25,8 @@ export function UserMenu(): JSX.Element {
         )}
       >
         <Avatar className="h-9 w-9 rounded-md">
-          {user.image ? (
-            <AvatarImage src={user.image} className="" />
+          {session?.user.image ? (
+            <AvatarImage src={session.user.image} className="h-9 w-9" />
           ) : (
             <AvatarFallback className="h-9 w-9 rounded-md">
               <Icons.user className="h-4 w-4" />
@@ -38,6 +38,9 @@ export function UserMenu(): JSX.Element {
         <SheetHeader>
           <SheetTitle>TODO: User Menu</SheetTitle>
         </SheetHeader>
+        <SheetDescription>
+          <SignOutButton />
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   )

@@ -2,6 +2,12 @@ import { db } from "@/db"
 import { users } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 
+export const psGetUserById = db
+  .select()
+  .from(users)
+  .where(eq(users.id, sql.placeholder("id")))
+  .prepare("psGetUserById")
+
 export const psGetUserByEmail = db
   .select()
   .from(users)

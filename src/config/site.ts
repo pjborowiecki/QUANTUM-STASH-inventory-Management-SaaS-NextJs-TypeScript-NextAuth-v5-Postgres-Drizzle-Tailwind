@@ -1,5 +1,6 @@
 const links = {
-  github: "https://github.com/pjborowiecki/QUANTUM-STASH",
+  github:
+    "https://github.com/pjborowiecki/QUANTUM-STASH-inventory-Management-SaaS-NextJs-TypeScript-Postgres-Drizzle-Tailwind.git",
   twitter: "https://twitter.com/pjborowiecki",
   linkedin: "https://www.linkedin.com/in/pjborowiecki",
   discord: "",
@@ -11,7 +12,7 @@ const links = {
 export const siteConfig = {
   name: "Quantum Stash",
   description:
-    "Quantum Stash is a modern inventory management system, designed for the future of efficient business operations. Harness the power of advanced technology to streamline your inventory processes with precision and speed. Quantum Stash offers a seamless and intuitive experience, ensuring that your organization stays ahead in the dynamic landscape of inventory control. From cutting-edge analytics to real-time updates, Quantum Stash empowers your business to manage stock with unprecedented efficiency. Elevate your inventory management to a new dimension with Quantum Stash.",
+    "Quantum Stash is an open-source Software as a Service (SaaS) web application designed for efficient inventory management. Built with Next.js, Next-Auth, Postgres, Drizzle, Tailwind, ShadCN UI and many other fantastic tools.",
   links,
   url: "https://quantumstash.com",
   ogImage: links.openGraphImage,
