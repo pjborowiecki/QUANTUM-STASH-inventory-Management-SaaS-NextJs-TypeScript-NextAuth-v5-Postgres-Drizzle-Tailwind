@@ -3,10 +3,12 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { resetPassword } from "@/actions/auth"
-import { passwordResetSchema } from "@/validations/auth"
+import {
+  passwordResetSchema,
+  type PasswordResetFormInput,
+} from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
@@ -21,21 +23,19 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type PasswordResetFormInputs = z.infer<typeof passwordResetSchema>
-
 export function PasswordResetForm(): JSX.Element {
   const router = useRouter()
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<PasswordResetFormInputs>({
+  const form = useForm<PasswordResetFormInput>({
     resolver: zodResolver(passwordResetSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  function onSubmit(formData: PasswordResetFormInputs): void {
+  function onSubmit(formData: PasswordResetFormInput): void {
     startTransition(async () => {
       try {
         const message = await resetPassword(formData.email)

@@ -3,10 +3,12 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { updatePassword } from "@/actions/auth"
-import { passwordUpdateSchema } from "@/validations/auth"
+import {
+  passwordUpdateSchema,
+  type PasswordUpdateFormInput,
+} from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
@@ -21,8 +23,6 @@ import {
 import { Icons } from "@/components/icons"
 import { PasswordInput } from "@/components/password-input"
 
-type PasswordUpdateFormInputs = z.infer<typeof passwordUpdateSchema>
-
 interface PasswordUpdateFormProps {
   resetPasswordToken: string
 }
@@ -34,7 +34,7 @@ export function PasswordUpdateForm({
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<PasswordUpdateFormInputs>({
+  const form = useForm<PasswordUpdateFormInput>({
     resolver: zodResolver(passwordUpdateSchema),
     defaultValues: {
       password: "",
@@ -42,7 +42,7 @@ export function PasswordUpdateForm({
     },
   })
 
-  function onSubmit(formData: PasswordUpdateFormInputs): void {
+  function onSubmit(formData: PasswordUpdateFormInput): void {
     startTransition(async () => {
       try {
         const message = await updatePassword(

@@ -1,15 +1,14 @@
+import { auth } from "@/auth"
 import { createUploadthing, type FileRouter } from "uploadthing/next"
-
-import { getCurrentUser } from "@/lib/auth"
 
 const f = createUploadthing()
 
 export const uploadFilesRouter = {
   productImage: f({ image: { maxFileSize: "4MB", maxFileCount: 5 } })
     .middleware(async (_req) => {
-      const user = await getCurrentUser()
-      if (!user) throw new Error("Unauthorized")
-      return { userId: user.id }
+      const session = await auth()
+      if (!session) throw new Error("Unauthorized")
+      return { userId: session.user.id }
     })
     // eslint-disable-next-line @typescript-eslint/require-await
     .onUploadComplete(async ({ metadata, file }) => {

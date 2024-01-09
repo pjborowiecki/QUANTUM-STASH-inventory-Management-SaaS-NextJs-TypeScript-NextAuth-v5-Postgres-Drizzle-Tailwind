@@ -7,12 +7,15 @@ module.exports = {
   trailingComma: "es5",
   importOrder: [
     "^@/styles/(.*)$",
-    "^(react/(.*)$)|^(react$)",
-    "^(next/(.*)$)|^(next$)",
-    "<THIRD_PARTY_MODULES>",
     "",
     "^types$",
     "^@/types/(.*)$",
+    "",
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "^next-auth",
+    "<THIRD_PARTY_MODULES>",
+    "",
     "^@/config/(.*)$",
     "^@/data/(.*)$",
     "^@/providers/(.*)$",
@@ -31,4 +34,4 @@ module.exports = {
     "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss",
   ],
-};
+}

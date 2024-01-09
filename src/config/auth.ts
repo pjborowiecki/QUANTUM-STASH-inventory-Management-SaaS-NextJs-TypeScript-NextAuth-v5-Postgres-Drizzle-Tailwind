@@ -1,34 +1,18 @@
-import { sendEmail } from "@/actions/emails"
-import { getUserByEmail } from "@/actions/users"
-import { db } from "@/db"
-import { env } from "@/env.mjs"
-import { DrizzleAdapter } from "@auth/drizzle-adapter"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import type { Account, AuthOptions, Profile, Session, User } from "next-auth"
-import { type JWT } from "next-auth/jwt"
+import type { NextAuthConfig } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import Email from "next-auth/providers/email"
+import EmailProvider from "next-auth/providers/email"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import { getUserByEmail } from "@/actions/users"
+import { env } from "@/env.mjs"
+import { signInWithPasswordSchema } from "@/validations/auth"
+import bcryptjs from "bcryptjs"
 
+import { resend } from "@/config/email"
 import { siteConfig } from "@/config/site"
 import { MagicLinkEmail } from "@/components/emails/magic-link-email"
 
-export const authOptions: AuthOptions = {
-  adapter: DrizzleAdapter(db),
-  debug: env.NODE_ENV === "development",
-  secret: env.AUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 daysd
-    updateAge: 24 * 60 * 60, // 24 hours
-  },
-  pages: {
-    signIn: "/signin",
-    signOut: "/signout",
-    verifyRequest: "/signin/magic-link-signin",
-  },
+export default {
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_ID,
@@ -38,8 +22,44 @@ export const authOptions: AuthOptions = {
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
     }),
-    Email({
+    CredentialsProvider({
+      async authorize(rawCredentials) {
+        console.log("Entering auth.config authorize function")
+        const validatedCredentials =
+          signInWithPasswordSchema.safeParse(rawCredentials)
+
+        console.log("Past the auth.config server-side input validation")
+
+        if (validatedCredentials.success) {
+          const user = await getUserByEmail(validatedCredentials.data.email)
+          if (!user || !user.passwordHash) return null
+
+          console.log("Past the auth.config check for existing user")
+
+          const passwordIsValid = await bcryptjs.compare(
+            validatedCredentials.data.password,
+            user.passwordHash
+          )
+
+          console.log("Past the auth.config check if valid password")
+
+          console.log("USER from auth.config (actual return)", user)
+          if (passwordIsValid) return user
+        }
+        console.log("OK, WAIT!! Returning null from auth.config !!!")
+        return null
+      },
+    }),
+    EmailProvider({
       type: "email",
+      server: {
+        host: env.RESEND_HOST,
+        port: Number(env.RESEND_PORT),
+        auth: {
+          user: env.RESEND_USERNAME,
+          pass: env.RESEND_API_KEY,
+        },
+      },
       async sendVerificationRequest({
         identifier,
         url,
@@ -48,7 +68,7 @@ export const authOptions: AuthOptions = {
         url: string
       }) {
         try {
-          const emailSent = await sendEmail({
+          const emailSent = await resend.emails.send({
             from: env.RESEND_EMAIL_FROM,
             to: [identifier],
             subject: `${siteConfig.name} magic link sign in`,
@@ -60,63 +80,5 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        if (!credentials) return null
-
-        const user = await getUserByEmail(credentials.email)
-        if (!user) return null
-
-        const passwordIsValid = await bcrypt.compare(
-          credentials.password,
-          String(user.passwordHash)
-        )
-
-        return passwordIsValid ? user : null
-      },
-    }),
   ],
-  jwt: {
-    encode({ secret, token }) {
-      if (!token) throw new Error("No token to encode")
-      return jwt.sign(token, secret)
-    },
-    decode({ secret, token }) {
-      if (!token) throw new Error("No token to decode")
-
-      const decodedToken = jwt.verify(token, secret)
-      return typeof decodedToken === "string"
-        ? (JSON.parse(decodedToken) as JWT)
-        : decodedToken
-    },
-  },
-  callbacks: {
-    jwt(params: {
-      token: JWT
-      user?: User | undefined
-      account?: Account | null | undefined
-      profile?: Profile | undefined
-      isNewUser?: boolean | undefined
-    }) {
-      if (params.user) {
-        params.token.email = params.user.email
-        params.token.id = params.user?.id
-      }
-
-      return params.token
-    },
-    session(params: { session: Session; token: JWT; user: User }) {
-      if (params.session.user) {
-        params.session.user.email = params.token.email
-        params.session.user.id = params.token.id as string
-      }
-
-      return params.session
-    },
-  },
-}
+} satisfies NextAuthConfig
