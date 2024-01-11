@@ -3,7 +3,6 @@
 import * as React from "react"
 import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { signInWithEmail } from "@/actions/auth"
 import {
   signInWithEmailSchema,
   type SignInWithEmailFormInput,
@@ -11,7 +10,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { DEFAULT_SIGNIN_REDIRECT } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -40,37 +38,12 @@ export function SignInWithEmailForm(): JSX.Element {
   function onSubmit(formData: SignInWithEmailFormInput): void {
     startTransition(async () => {
       try {
-        await signIn("email", {
-          email: formData.email,
-          callbackUrl: DEFAULT_SIGNIN_REDIRECT,
-        })
-        // const message = await signInWithEmail({ email: formData.email })
-        // switch (message) {
-        //   case "invalid-input":
-        //     toast({
-        //       title: "Invalid Email Address",
-        //       description: "Please check your email and try again",
-        //       variant: "destructive",
-        //     })
-        //     break
-        //   case "success":
-        //     toast({
-        //       title: "Success!",
-        //       description: "You are now signed in",
-        //     })
-        //     break
-        //   default:
-        //     toast({
-        //       title: "Error signing in with email",
-        //       description: "Please try again",
-        //       variant: "destructive",
-        //     })
-        // }
+        await signIn("email", { email: formData.email })
       } catch (error) {
         searchParams.get("error") === "OAuthAccountNotLinked"
           ? toast({
               title: "Email already in use with another provider",
-              description: "Perhaps you sign up with another method?",
+              description: "Perhaps you signed up with another method?",
               variant: "destructive",
             })
           : toast({

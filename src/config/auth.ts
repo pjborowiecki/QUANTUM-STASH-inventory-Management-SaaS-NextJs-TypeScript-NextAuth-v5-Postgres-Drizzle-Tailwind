@@ -17,36 +17,29 @@ export default {
     GoogleProvider({
       clientId: env.GOOGLE_ID,
       clientSecret: env.GOOGLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
     }),
     GitHubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+      allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
       async authorize(rawCredentials) {
-        console.log("Entering auth.config authorize function")
         const validatedCredentials =
           signInWithPasswordSchema.safeParse(rawCredentials)
-
-        console.log("Past the auth.config server-side input validation")
 
         if (validatedCredentials.success) {
           const user = await getUserByEmail(validatedCredentials.data.email)
           if (!user || !user.passwordHash) return null
-
-          console.log("Past the auth.config check for existing user")
 
           const passwordIsValid = await bcryptjs.compare(
             validatedCredentials.data.password,
             user.passwordHash
           )
 
-          console.log("Past the auth.config check if valid password")
-
-          console.log("USER from auth.config (actual return)", user)
           if (passwordIsValid) return user
         }
-        console.log("OK, WAIT!! Returning null from auth.config !!!")
         return null
       },
     }),
@@ -68,13 +61,14 @@ export default {
         url: string
       }) {
         try {
-          const emailSent = await resend.emails.send({
+          await resend.emails.send({
             from: env.RESEND_EMAIL_FROM,
             to: [identifier],
             subject: `${siteConfig.name} magic link sign in`,
             react: MagicLinkEmail({ identifier, url }),
           })
-          return void { success: true, data: emailSent }
+
+          console.log("Verification email sent")
         } catch (error) {
           throw new Error("Failed to send verification email")
         }

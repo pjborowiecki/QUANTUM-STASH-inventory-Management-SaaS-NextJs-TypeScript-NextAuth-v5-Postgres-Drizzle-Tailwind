@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { signInWithPassword } from "@/actions/auth"
 import {
   signInWithPasswordSchema,
@@ -9,6 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
+import { DEFAULT_SIGNIN_REDIRECT } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -25,6 +27,7 @@ import { PasswordInput } from "@/components/password-input"
 
 export function SignInWithPasswordForm(): JSX.Element {
   const { toast } = useToast()
+  const router = useRouter()
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<SignInWithPasswordFormInput>({
@@ -42,8 +45,6 @@ export function SignInWithPasswordForm(): JSX.Element {
           email: formData.email,
           password: formData.password,
         })
-
-        console.log("MESSAGE", message)
 
         switch (message) {
           case "not-registered":
@@ -65,6 +66,13 @@ export function SignInWithPasswordForm(): JSX.Element {
               description: "Please verify your email address before signing in",
             })
             break
+          case "invalid-credentials":
+            toast({
+              title: "Invalid email or Password",
+              description: "Double-check your credentials and try again",
+              variant: "destructive",
+            })
+            break
           case "success":
             toast({
               title: "Success!",
@@ -78,6 +86,8 @@ export function SignInWithPasswordForm(): JSX.Element {
               variant: "destructive",
             })
         }
+
+        router.push(DEFAULT_SIGNIN_REDIRECT)
       } catch (error) {
         console.error(error)
         toast({

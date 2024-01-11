@@ -9,10 +9,8 @@ import { db } from "@/db"
 import { users, type NewUser } from "@/db/schema"
 import { env } from "@/env.mjs"
 import {
-  signInWithEmailSchema,
   signInWithPasswordSchema,
   signUpWithPasswordSchema,
-  type SignInWithEmailFormInput,
   type SignInWithPasswordFormInput,
   type SignUpWithPasswordFormInput,
 } from "@/validations/auth"
@@ -20,28 +18,8 @@ import bcryptjs from "bcryptjs"
 import { eq } from "drizzle-orm"
 
 import { resend } from "@/config/email"
-import { DEFAULT_SIGNIN_REDIRECT } from "@/data/constants/index"
 import { EmailVerificationEmail } from "@/components/emails/email-verification-email"
 import { ResetPasswordEmail } from "@/components/emails/reset-password-email"
-
-export async function signInWithEmail(
-  rawInput: SignInWithEmailFormInput
-): Promise<"invalid-input" | "success" | "error"> {
-  const validatedInput = signInWithEmailSchema.safeParse(rawInput)
-  if (!validatedInput.success) return "invalid-input"
-
-  try {
-    const response = await signIn("email", {
-      email: validatedInput.data.email,
-      redirectTo: DEFAULT_SIGNIN_REDIRECT,
-    })
-
-    return response ? "success" : "error"
-  } catch (error) {
-    console.error(error)
-    throw new Error("Error signing in with email")
-  }
-}
 
 export async function signUpWithPassword(
   rawInput: SignUpWithPasswordFormInput
@@ -98,7 +76,6 @@ export async function signInWithPassword(
   | "unverified-email"
   | "incorrect-provider"
   | "success"
-  | "error"
 > {
   const validatedInput = signInWithPasswordSchema.safeParse(rawInput)
   if (!validatedInput.success) return "invalid-input"
@@ -112,16 +89,13 @@ export async function signInWithPassword(
   if (!existingUser.emailVerified) return "unverified-email"
 
   try {
-    console.log("INFO (Attempting signIn function isnide auth.config)")
-    const user = await signIn("credentials", {
+    await signIn("credentials", {
       email: validatedInput.data.email,
       password: validatedInput.data.password,
-      // redirectTo: DEFAULT_SIGNIN_REDIRECT,
+      redirect: false,
     })
 
-    console.log("INFO (User from auth.config)", user)
-
-    return user ? "success" : "invalid-credentials"
+    return "success"
   } catch (error) {
     console.error(error)
     if (error instanceof AuthError) {
@@ -129,10 +103,11 @@ export async function signInWithPassword(
         case "CredentialsSignin":
           return "invalid-credentials"
         default:
-          return "error"
+          throw error
       }
+    } else {
+      throw error
     }
-    throw new Error("Error signing in with password")
   }
 }
 

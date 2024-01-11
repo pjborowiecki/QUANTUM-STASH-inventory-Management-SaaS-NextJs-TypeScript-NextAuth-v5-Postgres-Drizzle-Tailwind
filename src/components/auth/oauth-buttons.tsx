@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { unstable_noStore as noStore } from "next/cache"
-import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 
 import { DEFAULT_SIGNIN_REDIRECT } from "@/data/constants/index"
@@ -12,31 +11,28 @@ import { Icons } from "@/components/icons"
 
 export function OAuthButtons(): JSX.Element {
   const { toast } = useToast()
-  const searchParams = useSearchParams()
-
   async function handleOAuthSignIn(
     provider: "google" | "github"
   ): Promise<void> {
-    try {
-      noStore()
+    noStore()
 
+    try {
       await signIn(provider, {
         callbackUrl: DEFAULT_SIGNIN_REDIRECT,
       })
+
+      toast({
+        title: "Success!",
+        description: "You are now signed in",
+      })
     } catch (error) {
-      searchParams.get("error") === "OAuthAccountNotLinked"
-        ? toast({
-            title: "Email already in use with another provider",
-            description: "",
-            variant: "destructive",
-          })
-        : toast({
-            title: "Something went wrong",
-            description: "Please try again",
-            variant: "destructive",
-          })
+      toast({
+        title: "Something went wrong",
+        description: "Plrease try again",
+      })
 
       console.error(error)
+      throw new Error(`Error signing in with ${provider}`)
     }
   }
 

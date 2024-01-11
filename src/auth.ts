@@ -16,7 +16,6 @@ export const {
   signOut,
 } = NextAuth({
   debug: env.NODE_ENV === "development",
-  adapter: DrizzleAdapter(db),
   pages: {
     signIn: "/signin",
     signOut: "/signout",
@@ -58,6 +57,6 @@ export const {
       return session
     },
   },
-
+  adapter: DrizzleAdapter(db),
   ...authConfig,
 })
