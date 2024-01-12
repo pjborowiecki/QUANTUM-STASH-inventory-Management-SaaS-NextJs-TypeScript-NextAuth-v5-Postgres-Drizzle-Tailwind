@@ -1,10 +1,12 @@
 import * as z from "zod"
 
+// CATEGORIES
 export const categorySchema = z.object({
   name: z.string(),
   description: z.string(),
 })
 
+// ITEMS
 export const itemSchema = z.object({
   name: z.string(),
   category: z.string(),
@@ -115,13 +117,18 @@ export const extendedItemSchema = itemSchema.extend({
     .nullable(),
 })
 
+// UNITS
 export const unitSchema = z.object({
   name: z.string(),
   abbreviation: z.string(),
 })
 
+// BRANDS
 export const brandSchema = z.object({
   name: z.string(),
 })
 
 export type AddCategoryFormInput = z.infer<typeof categorySchema>
+export type AddUnitFormInput = z.infer<typeof unitSchema>
+export type AddBrandFormInput = z.infer<typeof brandSchema>
+export type AddItemFormInput = z.infer<typeof itemSchema>

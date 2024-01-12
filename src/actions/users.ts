@@ -10,8 +10,8 @@ import {
 import { type User } from "@/db/schema"
 
 export async function getUserById(id: string): Promise<User | null> {
+  noStore()
   try {
-    noStore()
     const [user] = await psGetUserById.execute({ id })
     return user || null
   } catch (error) {
@@ -21,8 +21,8 @@ export async function getUserById(id: string): Promise<User | null> {
 }
 
 export async function getUserByEmail(email: string): Promise<User | null> {
+  noStore()
   try {
-    noStore()
     const [user] = await psGetUserByEmail.execute({ email })
     return user || null
   } catch (error) {
@@ -34,8 +34,8 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 export async function getUserByResetPasswordToken(
   resetPasswordToken: string
 ): Promise<User | null> {
+  noStore()
   try {
-    noStore()
     const [user] = await psGetUserByResetPasswordToken.execute({
       resetPasswordToken,
     })
@@ -49,8 +49,8 @@ export async function getUserByResetPasswordToken(
 export async function getUserByEmailVerificationToken(
   emailVerificationToken: string
 ): Promise<User | null> {
+  noStore()
   try {
-    noStore()
     const [user] = await psGetUserByEmailVerificationToken.execute({
       emailVerificationToken,
     })

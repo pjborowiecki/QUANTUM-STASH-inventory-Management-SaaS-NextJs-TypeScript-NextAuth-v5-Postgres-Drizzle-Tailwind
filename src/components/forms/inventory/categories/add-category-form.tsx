@@ -42,16 +42,35 @@ export function AddCategoryForm(): JSX.Element {
   function onSubmit(formData: AddCategoryFormInput) {
     startTransition(async () => {
       try {
-        const response = await addCategory({
+        const message = await addCategory({
           name: formData.name,
           description: formData.description,
         })
 
-        if (response === "success") {
-          toast({ title: "Success!", description: "New category added" })
-        }
+        console.log("INFO (MESSAGE)", message)
 
-        router.push("/app/inventory/categories")
+        switch (message) {
+          case "exists":
+            toast({
+              title: "This category already exists",
+              description: "Please use a different name",
+              variant: "destructive",
+            })
+            break
+          case "success":
+            toast({
+              title: "Success!",
+              description: "New category added",
+            })
+            break
+          default:
+            toast({
+              title: "Error adding new category",
+              description: "Please try again",
+              variant: "destructive",
+            })
+            router.push("/app/inventory/categories")
+        }
       } catch (error) {
         toast({
           title: "Something wend wrong",
@@ -89,7 +108,10 @@ export function AddCategoryForm(): JSX.Element {
             <FormItem className="w-1/2">
               <FormLabel>Description</FormLabel>
               <FormControl className="min-h-[120px]">
-                <Textarea placeholder="Category description" {...field} />
+                <Textarea
+                  placeholder="Category description (optional)"
+                  {...field}
+                />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
