@@ -123,3 +123,5 @@ export const unitSchema = z.object({
 export const brandSchema = z.object({
   name: z.string(),
 })
+
+export type AddCategoryFormInput = z.infer<typeof categorySchema>

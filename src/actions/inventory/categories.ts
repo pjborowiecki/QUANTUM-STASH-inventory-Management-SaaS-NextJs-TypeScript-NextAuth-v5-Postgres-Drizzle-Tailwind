@@ -1,15 +1,25 @@
 "use server"
 
-import type { categorySchema } from "@/validations/inventory"
-import type { z } from "zod"
+import { db } from "@/db"
+import { categories, type NewCategory } from "@/db/schema"
+import {
+  categorySchema,
+  type AddCategoryFormInput,
+} from "@/validations/inventory"
 
-export async function addCategory(input: z.infer<typeof categorySchema>) {
-  console.log(input.name, input.description)
-  console.log("Adding new category to the database")
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("Category added to the database")
-      resolve("success")
-    }, 1000)
-  })
+export async function getCategoryByName() {}
+
+export async function addCategory(
+  rawInput: AddCategoryFormInput
+): Promise<"invalid-input"> {
+  const validatedInput = categorySchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
+  const existingCategory = getCategoryByName()
+
+  try {
+  } catch (error) {
+    console.error(error)
+    throw new Error("Error adding new category")
+  }
 }
