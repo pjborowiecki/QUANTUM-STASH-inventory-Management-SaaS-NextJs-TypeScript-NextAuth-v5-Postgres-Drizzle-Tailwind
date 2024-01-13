@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "user_role" AS ENUM('user', 'admin');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
@@ -23,6 +29,7 @@ CREATE TABLE IF NOT EXISTS "category" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(32) NOT NULL,
 	"description" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "category_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
@@ -79,6 +86,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"resetPasswordToken" text,
 	"resetPasswordTokenExpiry" timestamp,
 	"image" text,
+	"user" "user_role",
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "user_username_unique" UNIQUE("username"),
 	CONSTRAINT "user_email_unique" UNIQUE("email"),

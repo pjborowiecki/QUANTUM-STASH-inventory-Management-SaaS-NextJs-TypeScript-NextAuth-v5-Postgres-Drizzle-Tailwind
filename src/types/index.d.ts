@@ -2,6 +2,9 @@ import { type FileWithPath } from "react-dropzone"
 
 import { type dashboardCardSelectOptions } from "@/data/constants/dashboard"
 
+export interface SearchParams {
+  [key: string]: string | string[] | undefined
+}
 export interface NavItem {
   title: string
   href: string
@@ -16,6 +19,22 @@ export interface NavItemWithChildren extends NavItem {
 }
 
 export type AppSidebarNavItem = NavItemWithChildren
+
+export interface Option {
+  label: string
+  value: string
+  icon?: React.ComponentType<{ className?: string }>
+}
+
+export interface DataTableSearchableColumn<TData> {
+  id: keyof TData
+  title: string
+}
+
+export interface DataTableFilterableColumn<TData>
+  extends DataTableSearchableColumn<TData> {
+  options: Option[]
+}
 
 export interface DashboardCardSelectOption {
   value: string

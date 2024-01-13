@@ -29,3 +29,22 @@ export function isArrayOfFiles(files: unknown): files is File[] {
 export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }
+
+export function toSentenceCase(str: string) {
+  return str
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase())
+}
+
+export function formatDate(
+  date: Date | string | number,
+  options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }
+) {
+  return new Intl.DateTimeFormat("en-US", {
+    ...options,
+  }).format(new Date(date))
+}

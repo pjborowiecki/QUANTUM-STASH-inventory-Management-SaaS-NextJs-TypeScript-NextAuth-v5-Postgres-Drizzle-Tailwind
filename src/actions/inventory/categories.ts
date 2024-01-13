@@ -7,20 +7,33 @@ import {
   psGetCategoryById,
   psGetCategoryByName,
 } from "@/db/prepared/inventory.statements"
-import { categories, type Category, type NewCategory } from "@/db/schema"
+import { categories, type Category } from "@/db/schema"
 import {
   categorySchema,
+  deleteCategorySchema,
+  getCategoryByIdSchema,
+  getCategoryByNameSchema,
+  updateCategorySchema,
   type AddCategoryFormInput,
+  type DeleteCategoryFormInput,
+  type GetCategoryByIdFormInput,
+  type GetCategoryByNameFormInput,
+  type UpdateCategoryFormInput,
 } from "@/validations/inventory"
+import { eq } from "drizzle-orm"
 
 export async function getCategoryByName(
-  name: string
+  rawInput: GetCategoryByNameFormInput
 ): Promise<Category | null> {
-  noStore()
+  const validatedInput = getCategoryByNameSchema.parse(rawInput)
+  if (!validatedInput) return null
+
   try {
+    noStore()
     const [category] = await psGetCategoryByName.execute({
-      name: name.toLowerCase().trim(),
+      name: validatedInput.name.toLowerCase().trim(),
     })
+
     return category || null
   } catch (error) {
     console.error(error)
@@ -28,10 +41,17 @@ export async function getCategoryByName(
   }
 }
 
-export async function getCategoryById(id: string): Promise<Category | null> {
-  noStore()
+export async function getCategoryById(
+  rawInput: GetCategoryByIdFormInput
+): Promise<Category | null> {
+  const validatedInput = getCategoryByIdSchema.parse(rawInput)
+  if (!validatedInput) return null
+
   try {
-    const [category] = await psGetCategoryById.execute({ id })
+    noStore()
+    const [category] = await psGetCategoryById.execute({
+      id: validatedInput.id,
+    })
     return category || null
   } catch (error) {
     console.error(error)
@@ -40,8 +60,8 @@ export async function getCategoryById(id: string): Promise<Category | null> {
 }
 
 export async function getAllCategories(): Promise<Category[] | null> {
-  noStore()
   try {
+    noStore()
     const categories = await psGetAllCategories.execute()
     return categories || null
   } catch (error) {
@@ -57,19 +77,64 @@ export async function addCategory(
   if (!validatedInput.success) return "invalid-input"
 
   try {
-    const existingCategory = await getCategoryByName(validatedInput.data.name)
+    const existingCategory = await getCategoryByName({
+      name: validatedInput.data.name,
+    })
     if (existingCategory) return "exists"
 
+    // TODO: Replace with prepared statement
     const newCategoryResponse = await db.insert(categories).values({
       name: validatedInput.data.name.toLowerCase().trim(),
       description: validatedInput.data.description,
-    } as NewCategory)
-
-    console.log("NEW CATEGORY RESPONSE", newCategoryResponse)
+    })
 
     return newCategoryResponse ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error adding new category")
+  }
+}
+
+export async function deleteCategory(
+  rawInput: DeleteCategoryFormInput
+): Promise<"invalid-input" | "success" | "error"> {
+  const validatedInput = deleteCategorySchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
+  try {
+    // TODO: Replace with prepared statement
+    const deletedCategory = await db
+      .delete(categories)
+      .where(eq(categories.id, validatedInput.data.id))
+
+    return deletedCategory ? "success" : "error"
+  } catch (error) {
+    console.error(error)
+    throw new Error("Error deleting category")
+  }
+}
+
+export async function updateCategory(
+  rawInput: UpdateCategoryFormInput
+): Promise<"invalid-input" | "success" | "error"> {
+  const validatedInput = updateCategorySchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
+  try {
+    const existingCategory = await getCategoryById({
+      id: validatedInput.data.id,
+    })
+    if (!existingCategory) return "error"
+
+    // TODO: Replace with prepared statement
+    const newCategoryResponse = await db
+      .update(categories)
+      .set(validatedInput.data)
+      .where(eq(categories.id, existingCategory.id))
+
+    return newCategoryResponse ? "success" : "error"
+  } catch (error) {
+    console.error(error)
+    throw new Error("Error updating category")
   }
 }

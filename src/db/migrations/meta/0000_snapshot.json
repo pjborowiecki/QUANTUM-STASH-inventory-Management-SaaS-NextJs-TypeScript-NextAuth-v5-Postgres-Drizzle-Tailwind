@@ -1,5 +1,5 @@
 {
-  "id": "b9af0391-5006-405a-99a2-869f86a95865",
+  "id": "cdf97355-5965-4cc4-b9d4-89311e9d9f8a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -154,6 +154,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -489,6 +496,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "user": {
+          "name": "user",
+          "type": "user_role",
+          "primaryKey": false,
+          "notNull": false
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -608,7 +621,15 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "user_role": {
+      "name": "user_role",
+      "values": {
+        "user": "user",
+        "admin": "admin"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

@@ -3,10 +3,11 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { addCategory } from "@/actions/inventory/categories"
+import { updateCategory } from "@/actions/inventory/categories"
+import type { Category } from "@/db/schema"
 import {
   categorySchema,
-  type AddCategoryFormInput,
+  type UpdateCategoryFormInput,
 } from "@/validations/inventory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -26,53 +27,53 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-export function AddCategoryForm(): JSX.Element {
+interface UpdateCategoryFormProps {
+  category: Category
+}
+
+export function UpdateCategoryForm({
+  category,
+}: UpdateCategoryFormProps): JSX.Element {
   const { toast } = useToast()
   const router = useRouter()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<AddCategoryFormInput>({
+  const form = useForm<UpdateCategoryFormInput>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      name: "",
-      description: "",
+      name: category.name,
+      description: category.description || "",
     },
   })
 
-  function onSubmit(formData: AddCategoryFormInput) {
+  function onSubmit(formData: UpdateCategoryFormInput) {
     startTransition(async () => {
       try {
-        const message = await addCategory({
-          name: formData.name,
+        const message = await updateCategory({
+          id: fornData.id,
+          name: formData.id,
           description: formData.description,
         })
 
         switch (message) {
-          case "exists":
-            toast({
-              title: "This category already exists",
-              description: "Please use a different name",
-              variant: "destructive",
-            })
-            break
           case "success":
             toast({
               title: "Success!",
-              description: "New category added",
+              description: "Category updated",
             })
             router.push("/app/inventory/categories")
-            router.refresh()
             break
           default:
             toast({
-              title: "Error adding new category",
+              title: "Error updating category",
               description: "Please try again",
               variant: "destructive",
             })
         }
       } catch (error) {
+        console.error(error)
         toast({
-          title: "Something wend wrong",
+          title: "Something went wrong",
           description: "Please try again",
           variant: "destructive",
         })
@@ -121,7 +122,7 @@ export function AddCategoryForm(): JSX.Element {
         <div className=" flex items-center gap-2 pt-2">
           <Button
             disabled={isPending}
-            aria-label="Add Category"
+            aria-label="Update Category"
             className="w-fit"
           >
             {isPending ? (
@@ -130,12 +131,12 @@ export function AddCategoryForm(): JSX.Element {
                   className="mr-2 h-4 w-4 animate-spin"
                   aria-hidden="true"
                 />
-                <span>Adding...</span>
+                <span>Updating...</span>
               </>
             ) : (
-              <span>Add Category</span>
+              <span>Update Category</span>
             )}
-            <span className="sr-only">Add Category</span>
+            <span className="sr-only">Update Category</span>
           </Button>
 
           <Link

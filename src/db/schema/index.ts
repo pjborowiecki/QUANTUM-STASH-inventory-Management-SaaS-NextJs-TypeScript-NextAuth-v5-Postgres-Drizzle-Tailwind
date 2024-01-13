@@ -112,6 +112,7 @@ export const categories = pgTable("category", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 32 }).unique().notNull(),
   description: text("description"),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 })
 
 export const brands = pgTable("brand", {
