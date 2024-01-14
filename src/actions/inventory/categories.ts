@@ -116,23 +116,27 @@ export async function deleteCategory(
 
 export async function updateCategory(
   rawInput: UpdateCategoryFormInput
-): Promise<"invalid-input" | "success" | "error"> {
+): Promise<"invalid-input" | "exists" | "success" | "error"> {
   const validatedInput = updateCategorySchema.safeParse(rawInput)
   if (!validatedInput.success) return "invalid-input"
 
   try {
-    const existingCategory = await getCategoryById({
-      id: validatedInput.data.id,
+    const existingCategory = await getCategoryByName({
+      name: validatedInput.data.name,
     })
-    if (!existingCategory) return "error"
 
-    // TODO: Replace with prepared statement
-    const newCategoryResponse = await db
+    if (existingCategory) return "exists"
+
+    const newCategory = await db
       .update(categories)
-      .set(validatedInput.data)
-      .where(eq(categories.id, existingCategory.id))
+      .set({
+        name: validatedInput.data.name.toLowerCase().trim(),
+        description: validatedInput.data.description,
+      })
+      .where(eq(categories.id, validatedInput.data.id))
+      .returning()
 
-    return newCategoryResponse ? "success" : "error"
+    return newCategory ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error updating category")

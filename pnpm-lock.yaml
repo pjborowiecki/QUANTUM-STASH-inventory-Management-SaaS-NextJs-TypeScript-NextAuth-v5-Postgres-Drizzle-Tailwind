@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.49.3)
   '@neondatabase/serverless':
-    specifier: ^0.7.0
-    version: 0.7.0
+    specifier: ^0.7.2
+    version: 0.7.2
   '@radix-ui/react-accordion':
     specifier: ^1.1.2
     version: 1.1.2(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
@@ -114,8 +114,8 @@ dependencies:
     specifier: ^0.0.7
     version: 0.0.7(react@18.2.0)
   '@t3-oss/env-nextjs':
-    specifier: ^0.7.1
-    version: 0.7.1(typescript@5.3.3)(zod@3.22.4)
+    specifier: ^0.7.3
+    version: 0.7.3(typescript@5.3.3)(zod@3.22.4)
   '@tanstack/react-table':
     specifier: ^8.11.6
     version: 8.11.6(react-dom@18.2.0)(react@18.2.0)
@@ -139,7 +139,7 @@ dependencies:
     version: 16.3.1
   drizzle-orm:
     specifier: ^0.29.3
-    version: 0.29.3(@neondatabase/serverless@0.7.0)(@types/react@18.2.47)(react@18.2.0)
+    version: 0.29.3(@neondatabase/serverless@0.7.2)(@types/react@18.2.47)(react@18.2.0)
   next:
     specifier: 14.0.4
     version: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -192,7 +192,7 @@ dependencies:
 devDependencies:
   '@ianvs/prettier-plugin-sort-imports':
     specifier: ^4.1.1
-    version: 4.1.1(prettier@3.1.1)
+    version: 4.1.1(prettier@3.2.1)
   '@tailwindcss/line-clamp':
     specifier: ^0.4.4
     version: 0.4.4(tailwindcss@3.4.1)
@@ -203,14 +203,14 @@ devDependencies:
     specifier: ^2.4.6
     version: 2.4.6
   '@types/eslint':
-    specifier: ^8.56.1
-    version: 8.56.1
+    specifier: ^8.56.2
+    version: 8.56.2
   '@types/jsonwebtoken':
     specifier: ^9.0.5
     version: 9.0.5
   '@types/node':
-    specifier: ^20.10.7
-    version: 20.10.7
+    specifier: ^20.11.0
+    version: 20.11.0
   '@types/react':
     specifier: ^18.2.47
     version: 18.2.47
@@ -227,8 +227,8 @@ devDependencies:
     specifier: ^10.4.16
     version: 10.4.16(postcss@8.4.33)
   drizzle-kit:
-    specifier: ^0.20.10
-    version: 0.20.10
+    specifier: ^0.20.12
+    version: 0.20.12
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -245,11 +245,11 @@ devDependencies:
     specifier: ^8.4.33
     version: 8.4.33
   prettier:
-    specifier: ^3.1.1
-    version: 3.1.1
+    specifier: ^3.2.1
+    version: 3.2.1
   prettier-plugin-tailwindcss:
     specifier: ^0.5.11
-    version: 0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.1.1)
+    version: 0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.2.1)
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
@@ -273,7 +273,7 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.21
 
   /@auth/core@0.18.4(nodemailer@6.9.8):
     resolution: {integrity: sha512-GsNhsP1xE/3FoNS3dVkPjqRljLNJ4iyL2OLv3klQGNvw3bMpROFcK4lqhx7+pPHiamnVaYt2vg1xbB+lsNaevg==}
@@ -287,7 +287,7 @@ packages:
       cookie: 0.6.0
       jose: 5.2.0
       nodemailer: 6.9.8
-      oauth4webapi: 2.4.3
+      oauth4webapi: 2.6.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
@@ -305,7 +305,7 @@ packages:
       cookie: 0.6.0
       jose: 5.2.0
       nodemailer: 6.9.8
-      oauth4webapi: 2.4.3
+      oauth4webapi: 2.6.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
@@ -357,7 +357,7 @@ packages:
     dependencies:
       '@babel/types': 7.23.6
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.21
       jsesc: 2.5.2
 
   /@babel/helper-compilation-targets@7.23.6:
@@ -992,11 +992,11 @@ packages:
       react-hook-form: 7.49.3(react@18.2.0)
     dev: false
 
-  /@humanwhocodes/config-array@0.11.13:
-    resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
+  /@humanwhocodes/config-array@0.11.14:
+    resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
     dependencies:
-      '@humanwhocodes/object-schema': 2.0.1
+      '@humanwhocodes/object-schema': 2.0.2
       debug: 4.3.4
       minimatch: 3.1.2
     transitivePeerDependencies:
@@ -1008,11 +1008,11 @@ packages:
     engines: {node: '>=12.22'}
     dev: true
 
-  /@humanwhocodes/object-schema@2.0.1:
-    resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
+  /@humanwhocodes/object-schema@2.0.2:
+    resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
 
-  /@ianvs/prettier-plugin-sort-imports@4.1.1(prettier@3.1.1):
+  /@ianvs/prettier-plugin-sort-imports@4.1.1(prettier@3.2.1):
     resolution: {integrity: sha512-kJhXq63ngpTQ2dxgf5GasbPJWsJA3LgoOdd7WGhpUSzLgLgI4IsIzYkbJf9kmpOHe7Vdm/o3PcRA3jmizXUuAQ==}
     peerDependencies:
       '@vue/compiler-sfc': '>=3.0.0'
@@ -1026,7 +1026,7 @@ packages:
       '@babel/parser': 7.23.6
       '@babel/traverse': 7.23.7
       '@babel/types': 7.23.6
-      prettier: 3.1.1
+      prettier: 3.2.1
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
@@ -1049,7 +1049,7 @@ packages:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.21
 
   /@jridgewell/resolve-uri@3.1.1:
     resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
@@ -1062,14 +1062,14 @@ packages:
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  /@jridgewell/trace-mapping@0.3.20:
-    resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
+  /@jridgewell/trace-mapping@0.3.21:
+    resolution: {integrity: sha512-SRfKmRe1KvYnxjEMtxEr+J4HIeMX5YBg/qhRHpxEIGjhX1rshcHlnFUE9K0GazhVKWM7B+nARSkV8LuvJdJ5/g==}
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@neondatabase/serverless@0.7.0:
-    resolution: {integrity: sha512-93sBlhFVQWJM36WZVdwfeYnuov/fcjJzDnFJRcGeC8Ycn9YcP56sHcrdOO9SvKroJUCzxLjNGOgWbueylsBkrg==}
+  /@neondatabase/serverless@0.7.2:
+    resolution: {integrity: sha512-wU3WA2uTyNO7wjPs3Mg0G01jztAxUxzd9/mskMmtPwPTjf7JKWi9AW5/puOGXLxmZ9PVgRFeBVRVYq5nBPhsCg==}
     dependencies:
       '@types/pg': 8.6.6
     dev: false
@@ -2518,8 +2518,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@t3-oss/env-core@0.7.1(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-3+SQt39OlmSaRLqYVFv8uRm1BpFepM5TIiMytRqO9cjH+wB77o6BIJdeyM5h5U4qLBMEzOJWCY4MBaU/rLwbYw==}
+  /@t3-oss/env-core@0.7.3(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-hhtj59TKC6TKVdwJ0CcbKsvkr9R8Pc/SNKd4IgGUIC9T9X6moB8EZZ3FTJdABA/h9UABCK4J+KsF8gzmvMvHPg==}
     peerDependencies:
       typescript: '>=4.7.2'
       zod: ^3.0.0
@@ -2531,8 +2531,8 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@t3-oss/env-nextjs@0.7.1(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-tQDbNLGCOvKGi+JoGuJ/CJInJI7/kLWJqtgGppAKS7ZFLdVOqZYR/uRjxlXOWPnxmUKF8VswOAsq7fXUpNZDhA==}
+  /@t3-oss/env-nextjs@0.7.3(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-90TNffS17vjkQwfYyMUb4Zw9yqHwFV40f78qFug4JiQa5+N6DydTdlLOpzOcj8Cna/qpAVDwMSypofF/TVQDuA==}
     peerDependencies:
       typescript: '>=4.7.2'
       zod: ^3.0.0
@@ -2540,7 +2540,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@t3-oss/env-core': 0.7.1(typescript@5.3.3)(zod@3.22.4)
+      '@t3-oss/env-core': 0.7.3(typescript@5.3.3)(zod@3.22.4)
       typescript: 5.3.3
       zod: 3.22.4
     dev: false
@@ -2590,8 +2590,8 @@ packages:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
     dev: false
 
-  /@types/eslint@8.56.1:
-    resolution: {integrity: sha512-18PLWRzhy9glDQp3+wOgfLYRWlhgX0azxgJ63rdpoUHyrC9z0f5CkFburjQx4uD7ZCruw85ZtMt6K+L+R8fLJQ==}
+  /@types/eslint@8.56.2:
+    resolution: {integrity: sha512-uQDwm1wFHmbBbCZCqAlq6Do9LYwByNZHWzXppSnay9SuwJ+VRbjkbLABer54kcPnMSlG6Fdiy2yaFXm/z9Z5gw==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -2612,18 +2612,18 @@ packages:
   /@types/jsonwebtoken@9.0.5:
     resolution: {integrity: sha512-VRLSGzik+Unrup6BsouBeHsf4d1hOEgYWTm/7Nmw1sXoN1+tRly/Gy/po3yeahnP4jfnQWWAhQAqcNfH7ngOkA==}
     dependencies:
-      '@types/node': 20.10.7
+      '@types/node': 20.11.0
     dev: true
 
-  /@types/node@20.10.7:
-    resolution: {integrity: sha512-fRbIKb8C/Y2lXxB5eVMj4IU7xpdox0Lh8bUPEdtLysaylsml1hOOx1+STloRs/B9nf7C6kPRmmg/V7aQW7usNg==}
+  /@types/node@20.11.0:
+    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
     dependencies:
       undici-types: 5.26.5
 
   /@types/pg@8.6.6:
     resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==}
     dependencies:
-      '@types/node': 20.10.7
+      '@types/node': 20.11.0
       pg-protocol: 1.6.0
       pg-types: 2.2.0
     dev: false
@@ -3063,7 +3063,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001576
-      electron-to-chromium: 1.4.624
+      electron-to-chromium: 1.4.630
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
 
@@ -3414,8 +3414,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.20.10:
-    resolution: {integrity: sha512-GoBmfAWrZiX2ZHMGlVg7w34bnJw1gbQIzhGr1cROK6+0eikhFNSR4a4G8jtD3FO5JZKbbWHuNA5YFDJu6Us0Tw==}
+  /drizzle-kit@0.20.12:
+    resolution: {integrity: sha512-JWJposyEO6QvGIdvj0CmnJK5sMWW9j5HPiGnRIKvYNaAfZEHbmWlemxV2np7g2FZzSvuzwpa9EGmO20PaPeUmA==}
     hasBin: true
     dependencies:
       '@drizzle-team/studio': 0.0.37
@@ -3436,7 +3436,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.3(@neondatabase/serverless@0.7.0)(@types/react@18.2.47)(react@18.2.0):
+  /drizzle-orm@0.29.3(@neondatabase/serverless@0.7.2)(@types/react@18.2.47)(react@18.2.0):
     resolution: {integrity: sha512-uSE027csliGSGYD0pqtM+SAQATMREb3eSM/U8s6r+Y0RFwTKwftnwwSkqx3oS65UBgqDOM0gMTl5UGNpt6lW0A==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -3507,7 +3507,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@neondatabase/serverless': 0.7.0
+      '@neondatabase/serverless': 0.7.2
       '@types/react': 18.2.47
       react: 18.2.0
     dev: false
@@ -3526,8 +3526,8 @@ packages:
       semver: 7.5.4
     dev: false
 
-  /electron-to-chromium@1.4.624:
-    resolution: {integrity: sha512-w9niWuheXjz23vezH3w90n9KKcHe0UkhTfJ+rXJkuGGogHyQbQ7KS1x0a8ER4LbI3ljFS/gqxKh1TidNXDMHOg==}
+  /electron-to-chromium@1.4.630:
+    resolution: {integrity: sha512-osHqhtjojpCsACVnuD11xO5g9xaCyw7Qqn/C2KParkMv42i8jrJJgx3g7mkHfpxwhy9MnOJr8+pKOdZ7qzgizg==}
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -3586,7 +3586,7 @@ packages:
       object.assign: 4.1.5
       regexp.prototype.flags: 1.5.1
       safe-array-concat: 1.0.1
-      safe-regex-test: 1.0.0
+      safe-regex-test: 1.0.2
       string.prototype.trim: 1.2.8
       string.prototype.trimend: 1.0.7
       string.prototype.trimstart: 1.0.7
@@ -3984,7 +3984,7 @@ packages:
       '@eslint-community/regexpp': 4.10.0
       '@eslint/eslintrc': 2.1.4
       '@eslint/js': 8.56.0
-      '@humanwhocodes/config-array': 0.11.13
+      '@humanwhocodes/config-array': 0.11.14
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
       '@ungap/structured-clone': 1.2.0
@@ -5011,8 +5011,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /oauth4webapi@2.4.3:
-    resolution: {integrity: sha512-mvJqgWMhUUPrKWOikSVA9s3SssYNgxOlyebV4m69rLMUv+EOoLATLxHr+RX9gDCaweiPxr0NhQplYxInFCdLjw==}
+  /oauth4webapi@2.6.0:
+    resolution: {integrity: sha512-4P43og0d8fQ61RMQEl9L7zwGVduuYbLED7uP99MkFSGuOUvJL1Fs52/D3tRtKoFtiSwKblScTYJI+utQn3SUDg==}
     dev: false
 
   /object-assign@4.1.1:
@@ -5319,7 +5319,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-tailwindcss@0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.1.1):
+  /prettier-plugin-tailwindcss@0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.2.1):
     resolution: {integrity: sha512-AvI/DNyMctyyxGOjyePgi/gqj5hJYClZ1avtQvLlqMT3uDZkRbi4HhGUpok3DRzv9z7Lti85Kdj3s3/1CeNI0w==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -5368,12 +5368,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      '@ianvs/prettier-plugin-sort-imports': 4.1.1(prettier@3.1.1)
-      prettier: 3.1.1
+      '@ianvs/prettier-plugin-sort-imports': 4.1.1(prettier@3.2.1)
+      prettier: 3.2.1
     dev: true
 
-  /prettier@3.1.1:
-    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
+  /prettier@3.2.1:
+    resolution: {integrity: sha512-qSUWshj1IobVbKc226Gw2pync27t0Kf0EdufZa9j7uBSJay1CC+B3K5lAAZoqgX3ASiKuWsk6OmzKRetXNObWg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -5643,8 +5643,9 @@ packages:
       isarray: 2.0.5
     dev: true
 
-  /safe-regex-test@1.0.0:
-    resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
+  /safe-regex-test@1.0.2:
+    resolution: {integrity: sha512-83S9w6eFq12BBIJYvjMux6/dkirb8+4zJRA9cxNBVb7Wq5fJBW+Xze48WqR8pxua7bDuAaaAxtVVd4Idjp1dBQ==}
+    engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
       get-intrinsic: 1.2.2

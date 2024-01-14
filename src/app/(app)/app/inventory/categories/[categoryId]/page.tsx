@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+import { getCategoryById } from "@/actions/inventory/categories"
 import { env } from "@/env.mjs"
 
 import {
@@ -17,7 +19,20 @@ export const metadata: Metadata = {
   description: "Update your category",
 }
 
-export default function AppInventoryCategoriesUpdateCategoryPage(): JSX.Element {
+interface AppInventoryCategoriesUpdateCategoryPageProps {
+  params: {
+    categoryId: number
+  }
+}
+
+export default async function AppInventoryCategoriesUpdateCategoryPage({
+  params,
+}: AppInventoryCategoriesUpdateCategoryPageProps): Promise<JSX.Element> {
+  const category = await getCategoryById({ id: Number(params.categoryId) })
+  if (!category) redirect("/app/inventory/categories")
+
+  console.log("CATEGORY FROM THE CATEGORY PAGE", category)
+
   return (
     <div>
       <SubSubHeader />

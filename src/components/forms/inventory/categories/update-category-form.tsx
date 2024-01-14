@@ -41,6 +41,7 @@ export function UpdateCategoryForm({
   const form = useForm<UpdateCategoryFormInput>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
+      id: category.id,
       name: category.name,
       description: category.description || "",
     },
@@ -50,8 +51,8 @@ export function UpdateCategoryForm({
     startTransition(async () => {
       try {
         const message = await updateCategory({
-          id: fornData.id,
-          name: formData.id,
+          id: category.id,
+          name: formData.name,
           description: formData.description,
         })
 
@@ -62,6 +63,13 @@ export function UpdateCategoryForm({
               description: "Category updated",
             })
             router.push("/app/inventory/categories")
+            break
+          case "exists":
+            toast({
+              title: "This name is already taken",
+              description: "Select a different name and try again",
+              variant: "destructive",
+            })
             break
           default:
             toast({
