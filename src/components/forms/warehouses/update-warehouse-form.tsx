@@ -10,14 +10,6 @@ import {
   type UpdateWarehouseFormInput,
 } from "@/validations/warehouses"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@radix-ui/react-select"
 import { useForm } from "react-hook-form"
 
 import { useToast } from "@/hooks/use-toast"
@@ -32,6 +24,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
