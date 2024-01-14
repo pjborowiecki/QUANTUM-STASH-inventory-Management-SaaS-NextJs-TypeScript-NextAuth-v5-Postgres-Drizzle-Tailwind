@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
 import {
@@ -17,12 +19,15 @@ export const metadata: Metadata = {
   description: "Define new category of items",
 }
 
-export default function AppInventoryCategoriesNewCategoryPage(): JSX.Element {
+export default async function AppInventoryCategoriesNewCategoryPage(): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   return (
     <div>
       <SubSubHeader />
       <div className="p-5">
-        <Card className="max-w-4xl rounded-md bg-tertiary">
+        <Card className="max-w-5xl rounded-md bg-tertiary">
           <CardHeader className="px-5 pt-5">
             <CardTitle className="text-2xl">New Category</CardTitle>
             <CardDescription className="text-base">

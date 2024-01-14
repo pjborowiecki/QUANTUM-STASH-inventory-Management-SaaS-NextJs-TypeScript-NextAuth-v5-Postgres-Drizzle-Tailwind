@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { getCategoryById } from "@/actions/inventory/categories"
+import { getWarehouseById } from "@/actions/warehouses"
 import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
@@ -11,29 +11,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { UpdateCategoryForm } from "@/components/forms/inventory/categories/update-category-form"
+import { UpdateWarehouseForm } from "@/components/forms/warehouses/update-warehouse-form"
 import { SubSubHeader } from "@/components/nav/subsubheader"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Update Category",
-  description: "Update your category",
+  title: "Update Warehouse",
+  description: "Update warehouse information",
 }
 
-interface AppInventoryCategoriesUpdateCategoryPageProps {
+interface AppWarehousesUpdateWarehousePageProps {
   params: {
-    categoryId: number
+    warehouseId: number
   }
 }
 
-export default async function AppInventoryCategoriesUpdateCategoryPage({
+export default async function AppWarehousesUpdateWarehousePage({
   params,
-}: AppInventoryCategoriesUpdateCategoryPageProps): Promise<JSX.Element> {
+}: AppWarehousesUpdateWarehousePageProps): Promise<JSX.Element> {
   const session = await auth()
   if (!session) redirect("/signin")
 
-  const category = await getCategoryById({ id: Number(params.categoryId) })
-  if (!category) redirect("/app/inventory/categories")
+  const warehouse = await getWarehouseById({ id: Number(params.warehouseId) })
+  if (!warehouse) redirect("/app/warehouses")
 
   return (
     <div>
@@ -41,13 +41,13 @@ export default async function AppInventoryCategoriesUpdateCategoryPage({
       <div className="p-5">
         <Card className="max-w-5xl rounded-md bg-tertiary">
           <CardHeader className="px-5 pt-5">
-            <CardTitle className="text-2xl">Update Category</CardTitle>
+            <CardTitle className="text-2xl">Update</CardTitle>
             <CardDescription className="text-base">
-              Update this category of items
+              Update warehouse information
             </CardDescription>
           </CardHeader>
           <CardContent className="px-5 pt-2">
-            <UpdateCategoryForm category={category} />
+            <UpdateWarehouseForm warehouse={warehouse} />
           </CardContent>
         </Card>
       </div>

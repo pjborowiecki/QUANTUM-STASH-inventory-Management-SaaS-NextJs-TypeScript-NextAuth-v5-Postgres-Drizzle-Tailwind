@@ -1,9 +1,14 @@
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 
 import { settingsOptions } from "@/data/constants/settings"
 import { Icons } from "@/components/icons"
 
-export default function SettingsPage(): JSX.Element {
+export default async function SettingsPage(): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   return (
     <div className="grid max-w-8xl grid-flow-row grid-cols-1 gap-5 p-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       {settingsOptions.map((option) => {

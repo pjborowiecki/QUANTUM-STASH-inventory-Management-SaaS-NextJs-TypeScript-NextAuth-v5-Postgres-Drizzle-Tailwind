@@ -25,13 +25,13 @@ import { eq } from "drizzle-orm"
 export async function getCategoryByName(
   rawInput: GetCategoryByNameFormInput
 ): Promise<Category | null> {
-  const validatedInput = getCategoryByNameSchema.parse(rawInput)
-  if (!validatedInput) return null
+  const validatedInput = getCategoryByNameSchema.safeParse(rawInput)
+  if (!validatedInput.success) return null
 
   try {
     noStore()
     const [category] = await psGetCategoryByName.execute({
-      name: validatedInput.name.toLowerCase().trim(),
+      name: validatedInput.data.name.toLowerCase().trim(),
     })
 
     return category || null
@@ -44,13 +44,13 @@ export async function getCategoryByName(
 export async function getCategoryById(
   rawInput: GetCategoryByIdFormInput
 ): Promise<Category | null> {
-  const validatedInput = getCategoryByIdSchema.parse(rawInput)
-  if (!validatedInput) return null
+  const validatedInput = getCategoryByIdSchema.safeParse(rawInput)
+  if (!validatedInput.success) return null
 
   try {
     noStore()
     const [category] = await psGetCategoryById.execute({
-      id: validatedInput.id,
+      id: validatedInput.data.id,
     })
     return category || null
   } catch (error) {
@@ -78,17 +78,20 @@ export async function addCategory(
 
   try {
     const existingCategory = await getCategoryByName({
-      name: validatedInput.data.name,
+      name: validatedInput.data.name.toLowerCase().trim(),
     })
     if (existingCategory) return "exists"
 
     // TODO: Replace with prepared statement
-    const newCategoryResponse = await db.insert(categories).values({
-      name: validatedInput.data.name.toLowerCase().trim(),
-      description: validatedInput.data.description,
-    })
+    const newCategory = await db
+      .insert(categories)
+      .values({
+        name: validatedInput.data.name.toLowerCase().trim(),
+        description: validatedInput.data.description,
+      })
+      .returning()
 
-    return newCategoryResponse ? "success" : "error"
+    return newCategory ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error adding new category")
@@ -122,10 +125,14 @@ export async function updateCategory(
 
   try {
     const existingCategory = await getCategoryByName({
-      name: validatedInput.data.name,
+      name: validatedInput.data.name.toLowerCase().trim(),
     })
 
-    if (existingCategory) return "exists"
+    if (
+      existingCategory &&
+      existingCategory.name !== validatedInput.data.name.toLowerCase().trim()
+    )
+      return "exists"
 
     const newCategory = await db
       .update(categories)

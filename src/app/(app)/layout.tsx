@@ -7,7 +7,7 @@ interface AppLayoutProps {
   children: React.ReactNode
 }
 
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   return (
     <div className="flex">
       <Sidebar />

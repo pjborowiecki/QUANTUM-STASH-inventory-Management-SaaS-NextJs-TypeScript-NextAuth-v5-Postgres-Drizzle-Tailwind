@@ -1,6 +1,12 @@
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
+
 import { BrandsSubheader } from "@/components/inventory/subheaders/brands-subheader"
 
-export default function AppInventoryBrandsPage(): JSX.Element {
+export default async function AppInventoryBrandsPage(): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   return (
     <div>
       <BrandsSubheader />

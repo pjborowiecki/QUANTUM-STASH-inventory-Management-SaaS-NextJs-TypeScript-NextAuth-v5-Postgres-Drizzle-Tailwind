@@ -1,6 +1,8 @@
 import * as React from "react"
 import type { Metadata } from "next"
 import { unstable_noStore as noStore } from "next/cache"
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 import { db } from "@/db/index"
 import { categories, type Category } from "@/db/schema"
 import { env } from "@/env.mjs"
@@ -8,9 +10,9 @@ import type { SearchParams } from "@/types"
 import { categoriesSearchParamsSchema } from "@/validations/params"
 import { asc, desc, like, sql } from "drizzle-orm"
 
-import { CategoriesTableShell } from "@/components/categories-table-shell"
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton"
-import { CategoriesSubheader } from "@/components/inventory/subheaders/categories-subheader"
+import { CategoriesTableShell } from "@/components/data-table/table-shells/categories-table-shell"
+import { Subheader } from "@/components/nav/subheader"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -25,6 +27,9 @@ interface AppInventoryCategoriesPageProps {
 export default async function AppInventoryCategoriesPage({
   searchParams,
 }: AppInventoryCategoriesPageProps): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   const { page, per_page, sort, name } =
     categoriesSearchParamsSchema.parse(searchParams)
 
@@ -72,12 +77,15 @@ export default async function AppInventoryCategoriesPage({
 
   return (
     <div>
-      <CategoriesSubheader />
+      <Subheader
+        buttonText="New Category"
+        buttonLink="/app/inventory/categories/new-category"
+      />
       <div className="p-5">
         <React.Suspense
           fallback={
             <DataTableSkeleton
-              columnCount={4}
+              columnCount={5}
               isNewRowCreatable={false}
               isRowsDeletable={true}
             />

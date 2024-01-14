@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
+
 import {
   Card,
   CardContent,
@@ -8,12 +11,15 @@ import {
 import { AddBrandForm } from "@/components/forms/inventory/brands/add-brand-form"
 import { SubSubHeader } from "@/components/nav/subsubheader"
 
-export default function AppInventoryBrandsNewBrandPage(): JSX.Element {
+export default async function AppInventoryBrandsNewBrandPage(): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   return (
     <div>
       <SubSubHeader />
       <div className="p-5">
-        <Card className="max-w-4xl rounded-md bg-tertiary">
+        <Card className="max-w-5xl rounded-md bg-tertiary">
           <CardHeader className="px-5 pt-5">
             <CardTitle className="text-2xl">New Brand</CardTitle>
             <CardDescription className="text-base">

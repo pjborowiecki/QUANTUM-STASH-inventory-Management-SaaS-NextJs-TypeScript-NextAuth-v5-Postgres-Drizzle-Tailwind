@@ -103,9 +103,9 @@ export const verificationTokens = pgTable(
 export const warehouses = pgTable("warehouse", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 32 }).notNull(),
-  type: varchar("type", { length: 32 }).notNull(),
+  type: varchar("type", { length: 24 }).notNull(),
   description: text("description"),
-  location: varchar("location", { length: 32 }).notNull(),
+  location: varchar("location", { length: 64 }).notNull(),
 })
 
 export const categories = pgTable("category", {

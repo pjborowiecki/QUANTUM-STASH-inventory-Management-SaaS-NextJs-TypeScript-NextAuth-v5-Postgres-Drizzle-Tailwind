@@ -1,3 +1,9 @@
-export default function AppSalesSalesOrdersNewOrderPage(): JSX.Element {
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
+
+export default async function AppSalesSalesOrdersNewOrderPage(): Promise<JSX.Element> {
+  const session = await auth()
+  if (!session) redirect("/signin")
+
   return <div>App Sales SalesOrders NewOrder Page</div>
 }
